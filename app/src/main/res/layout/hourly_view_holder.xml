@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/hour_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#FFFFFFFF"
+            android:text="HOUR"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#80000000"/>
+        <TextView
+            android:id="@+id/hour_desc_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#FFFFFFFF"
+            android:text="DESC"/>
+        <TextView
+            android:id="@+id/hour_temp_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:textColor="#FFFFFFFF"
+            android:text="temp"/>
+    </LinearLayout>
+
+</FrameLayout>

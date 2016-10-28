@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/current_bg">
+
+    <TextView
+        android:id="@+id/location_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:textSize="15sp"
+        android:text="LOCATION"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#20000000"/>
+    <TextView
+        android:id="@+id/description_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:textSize="20sp"
+        android:text="DESCRIPTION" />
+    <TextView
+        android:id="@+id/current_temp_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:paddingLeft="20dp"
+        android:textSize="50sp"
+        android:text="TEMPERATURE"/>
+    <TextView
+        android:id="@+id/current_data_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textColor="#FFFFFFFF"
+        android:text="WEATHER DATA"/>
+
+</LinearLayout>
