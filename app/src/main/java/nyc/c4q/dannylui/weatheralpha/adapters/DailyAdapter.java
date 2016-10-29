@@ -33,6 +33,7 @@ public class DailyAdapter extends RecyclerView.Adapter{
     }
 
     public void setData(List<Datum__> dataList) {
+        dataList.remove(0);
         this.dataList = dataList;
         notifyDataSetChanged();
     }

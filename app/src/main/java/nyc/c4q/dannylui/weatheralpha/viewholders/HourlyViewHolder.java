@@ -34,6 +34,10 @@ public class HourlyViewHolder extends RecyclerView.ViewHolder {
     public void bind(Datum_ data) {
         hourView.setText(ConvertUnixTs.toHourMinute(data.getTime()));
         descView.setText(data.getSummary());
-        tempView.setText(String.valueOf(Math.round(data.getTemperature())));
+        tempView.setText(String.valueOf(Math.round(data.getTemperature())) + "°");
+
+        ViewGroup.LayoutParams params = descView.getLayoutParams();
+        params.width = (int)(Math.round(data.getTemperature())) * 7;
+        descView.requestLayout();
     }
 }

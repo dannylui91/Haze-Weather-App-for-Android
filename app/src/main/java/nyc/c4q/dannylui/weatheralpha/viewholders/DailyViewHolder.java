@@ -16,6 +16,7 @@ import nyc.c4q.dannylui.weatheralpha.utility.ConvertUnixTs;
 public class DailyViewHolder extends RecyclerView.ViewHolder {
     private final View mView;
     private TextView dayView;
+    private TextView dayDescView;
     private TextView hiView;
     private TextView loView;
 
@@ -23,6 +24,7 @@ public class DailyViewHolder extends RecyclerView.ViewHolder {
         super(inflateView(parent));
         mView = itemView;
         dayView = (TextView) mView.findViewById(R.id.day_view);
+        dayDescView = (TextView) mView.findViewById(R.id.day_desc_view);
         hiView = (TextView) mView.findViewById(R.id.hi_view);
         loView = (TextView) mView.findViewById(R.id.lo_view);
     }
@@ -34,6 +36,7 @@ public class DailyViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Datum__ data) {
         dayView.setText(ConvertUnixTs.toDayOfWeek(data.getTime()));
+        dayDescView.setText(data.getSummary());
         hiView.setText(String.valueOf(Math.round(data.getTemperatureMax())) + "°");
         loView.setText(String.valueOf(Math.round(data.getTemperatureMin())) + "°");
     }

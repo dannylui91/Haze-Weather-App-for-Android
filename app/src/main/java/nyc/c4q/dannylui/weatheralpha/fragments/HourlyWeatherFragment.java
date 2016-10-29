@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,7 +25,6 @@ import nyc.c4q.dannylui.weatheralpha.models.Location;
 
 public class HourlyWeatherFragment extends Fragment implements UpdateableFragment {
     private RecyclerView recyclerView;
-    private TextView todaysView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

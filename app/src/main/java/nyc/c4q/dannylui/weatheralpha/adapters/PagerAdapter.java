@@ -9,6 +9,7 @@ import nyc.c4q.dannylui.weatheralpha.fragments.CurrentWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.DailyWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.HourlyWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.Hourly;
 import nyc.c4q.dannylui.weatheralpha.models.Location;
 
 /**
@@ -17,6 +18,11 @@ import nyc.c4q.dannylui.weatheralpha.models.Location;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private final static int NUMBER_OF_FRAGMENTS = 3;
+
+    private CurrentWeatherFragment currentWeatherFragment;
+    private HourlyWeatherFragment hourlyWeatherFragment;
+    private DailyWeatherFragment dailyWeatherFragment;
+
     private Forecast forecastData;
     private Location locationData;
 
@@ -28,11 +34,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new CurrentWeatherFragment();
+                return this.currentWeatherFragment = new CurrentWeatherFragment();
             case 1:
-                return new HourlyWeatherFragment();
+                return this.hourlyWeatherFragment = new HourlyWeatherFragment();
             case 2:
-                return new DailyWeatherFragment();
+                return this.dailyWeatherFragment = new DailyWeatherFragment();
             default:
                 return null;
         }
@@ -57,6 +63,18 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.locationData = newLocation;
         this.forecastData = newForecast;
         notifyDataSetChanged();
+    }
+
+    public DailyWeatherFragment getDailyWeatherFragment() {
+        return dailyWeatherFragment;
+    }
+
+    public HourlyWeatherFragment getHourlyWeatherFragment() {
+        return hourlyWeatherFragment;
+    }
+
+    public CurrentWeatherFragment getCurrentWeatherFragment() {
+        return currentWeatherFragment;
     }
 
     @Override

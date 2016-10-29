@@ -33,7 +33,7 @@ public class Currently {
     public Double precipIntensity;
     @SerializedName("precipProbability")
     @Expose
-    public Integer precipProbability;
+    public Double precipProbability;
     @SerializedName("temperature")
     @Expose
     public Double temperature;
@@ -86,7 +86,7 @@ public class Currently {
         return precipIntensity;
     }
 
-    public Integer getPrecipProbability() {
+    public Double getPrecipProbability() {
         return precipProbability;
     }
 
