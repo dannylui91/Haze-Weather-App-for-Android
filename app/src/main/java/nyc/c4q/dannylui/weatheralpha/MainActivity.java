@@ -17,6 +17,7 @@ import nyc.c4q.dannylui.weatheralpha.models.Forecast;
 import nyc.c4q.dannylui.weatheralpha.models.Location;
 import nyc.c4q.dannylui.weatheralpha.network.LocationService;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherService;
+import pl.droidsonroids.gif.GifDrawable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +31,8 @@ public class MainActivity extends FragmentActivity {
     public final static String API_KEY = BuildConfig.API_KEY;
     public final static String IP_API_BASE_URL = "http://ip-api.com/";
     public final static String DARK_SKY_BASE_URL = "https://api.darksky.net/";
+
+    GifDrawable gifFromResource;
 
     private ViewPager viewPager;
 

@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/current_bg"
     android:gravity="center">
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/animated_bg_turquoise"
-        />
     <!--Header-->
     <TextView
         android:id="@+id/header_view"
