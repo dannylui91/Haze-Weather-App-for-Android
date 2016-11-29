@@ -68,6 +68,7 @@ public class MainActivity extends FragmentActivity {
             viewPager.getLayoutParams().height = width;
         }
 
+        //Get Weather Data
         findGeoLocation();
     }
 
