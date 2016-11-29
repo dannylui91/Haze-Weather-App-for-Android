@@ -5,15 +5,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/current_bg"
     android:gravity="center">
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
+        android:id="@+id/background_gif_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/animated_bg_turquoise"
-        />
+        android:scaleType="fitXY" />
     <!--Header-->
     <TextView
         android:id="@+id/header_view"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
         android:text="Header"
         android:textColor="@color/primaryTextColor"
@@ -23,18 +23,16 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
         android:gravity="center" />
-    <View
-        android:id="@+id/divider"
-        android:layout_below="@id/header_view"
+
+    <FrameLayout
+        android:id="@+id/fragment_top"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="#50000000" />
+        android:layout_height="150dp" />
+
     <!--View Pager-->
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
-        android:layout_below="@id/divider"
+        android:layout_below="@id/fragment_top"
         android:layout_width="match_parent"
         android:layout_height="420dp" />
     <!--Footer-->

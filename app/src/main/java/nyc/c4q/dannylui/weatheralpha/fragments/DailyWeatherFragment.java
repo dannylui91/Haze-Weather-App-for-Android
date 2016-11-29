@@ -15,7 +15,6 @@ import nyc.c4q.dannylui.weatheralpha.R;
 import nyc.c4q.dannylui.weatheralpha.adapters.DailyAdapter;
 import nyc.c4q.dannylui.weatheralpha.models.Datum__;
 import nyc.c4q.dannylui.weatheralpha.models.Forecast;
-import nyc.c4q.dannylui.weatheralpha.models.Location;
 
 /**
  * Created by dannylui on 10/25/16.
@@ -34,7 +33,7 @@ public class DailyWeatherFragment extends Fragment implements UpdateableFragment
     }
 
     @Override
-    public void update(Location location, Forecast newData) {
+    public void update(Forecast newData) {
         List<Datum__> dataList = newData.getDaily().getData();
         DailyAdapter dailyAdapter = (DailyAdapter) recyclerView.getAdapter();
         dailyAdapter.setData(dataList);

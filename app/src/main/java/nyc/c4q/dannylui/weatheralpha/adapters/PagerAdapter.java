@@ -9,7 +9,6 @@ import nyc.c4q.dannylui.weatheralpha.fragments.CurrentWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.DailyWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.HourlyWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.models.Forecast;
-import nyc.c4q.dannylui.weatheralpha.models.Hourly;
 import nyc.c4q.dannylui.weatheralpha.models.Location;
 
 /**
@@ -47,20 +46,19 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         if (object instanceof CurrentWeatherFragment) {
-            ((CurrentWeatherFragment) object).update(locationData, forecastData);
+            ((CurrentWeatherFragment) object).update(forecastData);
         }
         if (object instanceof HourlyWeatherFragment) {
-            ((HourlyWeatherFragment) object).update(locationData, forecastData);
+            ((HourlyWeatherFragment) object).update(forecastData);
         }
         if (object instanceof DailyWeatherFragment) {
-            ((DailyWeatherFragment) object).update(locationData, forecastData);
+            ((DailyWeatherFragment) object).update(forecastData);
         }
 
         return super.getItemPosition(object);
     }
 
-    public void update(Location newLocation, Forecast newForecast) {
-        this.locationData = newLocation;
+    public void update(Forecast newForecast) {
         this.forecastData = newForecast;
         notifyDataSetChanged();
     }
