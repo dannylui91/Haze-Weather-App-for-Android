@@ -20,6 +20,8 @@ import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
  */
 
 public class CurrentWeatherFragment extends Fragment implements UpdateableFragment {
+    private Forecast forecastData;
+
     private TextView currentHiView;
     private TextView currentLoView;
     private TextView currentTempView;
@@ -36,7 +38,12 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.current_weather_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_current, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         currentHiView = (TextView) view.findViewById(R.id.current_hi_view);
         currentLoView = (TextView) view.findViewById(R.id.current_lo_view);
         currentTempView = (TextView) view.findViewById(R.id.current_temp_view);
@@ -44,7 +51,9 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
         currentWindSpeedView = (TextView) view.findViewById(R.id.current_wind_view);
         currentRainChanceView = (TextView) view.findViewById(R.id.current_rain_chance_view);
 
-
+        if (forecastData != null) {
+            setForecastData();
+        }
 
         origWidth = currentTempView.getLayoutParams().width;
         origHeight = currentTempView.getLayoutParams().height;
@@ -77,15 +86,30 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
                 }
             }
         });
-        return view;
+
+
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        animationEnd = false;
-        isDisabled = true;
-        System.out.println("Destroyed View");
+    public void update(Forecast data) {
+        forecastData = data;
+    }
+
+    public void setForecastData() {
+        CharSequence currentHigh = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMax()) + "°"), "\nHigh");
+        CharSequence currentLow = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMin()) + "°"), "\nLow");;
+        CharSequence currentTemp = String.valueOf(Math.round(forecastData.getCurrently().getTemperature()) + "°");
+        CharSequence currentFeel = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getCurrently().getApparentTemperature()) + "°"), "\nFeels");
+        CharSequence currentWindSpeed = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getCurrently().getWindSpeed())), "\nm/h");
+        CharSequence currentRainChance = SpannableUtil.changeTextSize(String.valueOf((int)(forecastData.getCurrently().getPrecipProbability() * 100)), "\n% Rain");
+
+
+        currentHiView.setText(currentHigh);
+        currentLoView.setText(currentLow);
+        currentTempView.setText(currentTemp);
+        currentFeelView.setText(currentFeel);
+        currentWindSpeedView.setText(currentWindSpeed);
+        currentRainChanceView.setText(currentRainChance);
     }
 
     public void disableViews() {
@@ -137,21 +161,10 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
     }
 
     @Override
-    public void update(Forecast forecastData) {
-
-        CharSequence currentHigh = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMax()) + "°"), "\nHigh");
-        CharSequence currentLow = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMin()) + "°"), "\nLow");;
-        CharSequence currentTemp = String.valueOf(Math.round(forecastData.getCurrently().getTemperature()) + "°");
-        CharSequence currentFeel = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getCurrently().getApparentTemperature()) + "°"), "\nFeels");
-        CharSequence currentWindSpeed = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getCurrently().getWindSpeed())), "\nm/h");
-        CharSequence currentRainChance = SpannableUtil.changeTextSize(String.valueOf((int)(forecastData.getCurrently().getPrecipProbability() * 100)), "\n% Rain");
-
-
-        currentHiView.setText(currentHigh);
-        currentLoView.setText(currentLow);
-        currentTempView.setText(currentTemp);
-        currentFeelView.setText(currentFeel);
-        currentWindSpeedView.setText(currentWindSpeed);
-        currentRainChanceView.setText(currentRainChance);
+    public void onDestroy() {
+        super.onDestroy();
+        animationEnd = false;
+        isDisabled = true;
+        System.out.println("Destroyed View");
     }
 }

@@ -34,6 +34,16 @@
         android:layout_below="@id/fragment_top"
         android:layout_width="match_parent"
         android:layout_height="420dp" />
+
+    <FrameLayout
+        android:id="@+id/moving_circle"
+        android:layout_below="@id/fragment_top"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+    </FrameLayout>
     <!--Footer-->
     <LinearLayout
         android:id="@+id/footer"
