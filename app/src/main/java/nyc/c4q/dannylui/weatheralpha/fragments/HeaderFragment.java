@@ -20,7 +20,7 @@ import nyc.c4q.dannylui.weatheralpha.utility.ConvertUnixTs;
  * Created by dannylui on 11/6/16.
  */
 
-public class HeaderDailyFragment extends Fragment {
+public class HeaderFragment extends Fragment {
     private TextView dayOneView;
     private TextView dayTwoView;
     private TextView dayThreeView;

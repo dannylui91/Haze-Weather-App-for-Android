@@ -19,7 +19,7 @@ import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
  * Created by dannylui on 10/25/16.
  */
 
-public class CurrentWeatherFragment extends Fragment implements UpdateableFragment {
+public class CurrentWeatherFragment extends Fragment {
     private View rootView;
     private Forecast forecastData;
 
@@ -92,7 +92,6 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
 
     }
 
-    @Override
     public void update(Forecast data) {
         forecastData = data;
         if (rootView != null) {

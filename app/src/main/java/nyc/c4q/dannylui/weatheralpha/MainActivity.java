@@ -3,7 +3,6 @@ package nyc.c4q.dannylui.weatheralpha;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -13,11 +12,12 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import nyc.c4q.dannylui.weatheralpha.adapters.ViewPagerAdapter;
+import nyc.c4q.dannylui.weatheralpha.fragments.CircleContainerFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.CurrentWeatherFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.EmptyFragment;
-import nyc.c4q.dannylui.weatheralpha.fragments.HeaderDailyFragment;
+import nyc.c4q.dannylui.weatheralpha.fragments.FooterFragment;
+import nyc.c4q.dannylui.weatheralpha.fragments.HeaderFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.PrecipFragment;
-import nyc.c4q.dannylui.weatheralpha.fragments.SunFragment;
 import nyc.c4q.dannylui.weatheralpha.models.Forecast;
 import nyc.c4q.dannylui.weatheralpha.models.Location;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherCallback;
@@ -25,47 +25,29 @@ import nyc.c4q.dannylui.weatheralpha.network.WeatherFactory;
 
 public class MainActivity extends FragmentActivity implements WeatherCallback {
     private FrameLayout movingCircle;
-
-    private static final String TAG = MainActivity.class.getName();
     private ViewPager pager;
 
-    private FragmentManager fragmentManager;
-
-    private ImageView firstDotView;
-    private ImageView secondDotView;
-    private ImageView thirdDotView;
-
-    public static CurrentWeatherFragment cwFrag;
-    public static HeaderDailyFragment fragmentTop;
+    private CircleContainerFragment circleFragment;
+    private HeaderFragment fragmentTop;
+    private FooterFragment fragmentBottom;
+    private CurrentWeatherFragment cwFrag;
     private PrecipFragment pFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWeatherInformation();
         setBackgroundImage();
+        initialize();
+        inflateFiveDayHeader();
+        setupViewPager();
+        inflateFooter();
+    }
+
+    private void getWeatherInformation() {
         WeatherFactory weatherFactory = new WeatherFactory(this);
-
-        movingCircle = (FrameLayout) findViewById(R.id.moving_circle);
-
-        fragmentTop = new HeaderDailyFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_top, fragmentTop)
-                .commit();
-
-        initViewPager();
-        initViewPagerDots();
-
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-            int width = metrics.widthPixels;
-            int height = metrics.heightPixels;
-            System.out.println("WIDTH IS " + width);
-            System.out.println("HEIGHT IS " + height);
-
-            pager.getLayoutParams().width = width;
-            pager.getLayoutParams().height = width;
-        }
     }
 
     private void setBackgroundImage() {
@@ -73,21 +55,36 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
         Glide.with(this).load(R.drawable.animation_bg_candy).into(backgroundGifView);
     }
 
-    public void initViewPagerDots() {
-        firstDotView = (ImageView) findViewById(R.id.first_dot_view);
-        secondDotView = (ImageView) findViewById(R.id.second_dot_view);
-        thirdDotView = (ImageView) findViewById(R.id.third_dot_view);
+    private void initialize() {
+        circleFragment = new CircleContainerFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.moving_circle, circleFragment)
+                .commit();
+        pager = (ViewPager) findViewById(R.id.view_pager);
     }
 
-    public void initViewPager() {
+    private void inflateFiveDayHeader() {
+        fragmentTop = new HeaderFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_top, fragmentTop)
+                .commit();
+    }
+
+    private void inflateFooter() {
+        fragmentBottom = new FooterFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.footer, fragmentBottom)
+                .commit();
+    }
+
+    public void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new EmptyFragment());
 
-        pager = (ViewPager) findViewById(R.id.view_pager);
         pager.setAdapter(adapter);
-        pager.setOffscreenPageLimit(2);
+        //pager.setOffscreenPageLimit(2);
         pager.addOnPageChangeListener(onPageChangeListener());
         pager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
@@ -96,6 +93,17 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
                 page.setAlpha(normalizedposition);
             }
         });
+
+        setViewPagerWithSameWidthHeight();
+    }
+
+    private void setViewPagerWithSameWidthHeight() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+            int width = metrics.widthPixels;
+            pager.getLayoutParams().width = width;
+            pager.getLayoutParams().height = width;
+        }
     }
 
     public ViewPager.OnPageChangeListener onPageChangeListener() {
@@ -107,36 +115,18 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
 
             @Override
             public void onPageSelected(int position) {
-                switch(position) {
+                switch (position) {
                     case 0:
-                        System.out.println("Page 1");
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.moving_circle, cwFrag)
-                                .commit();
-                        movingCircle.animate().translationY(0f);
-                        firstDotView.setBackgroundResource(R.drawable.dot_selected);
-                        secondDotView.setBackgroundResource(R.drawable.dot);
-                        thirdDotView.setBackgroundResource(R.drawable.dot);
+                        circleFragment.replaceContainer(position);
+                        fragmentBottom.changeDotPosition(position);
                         break;
                     case 1:
-                        System.out.println("Page 2");
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.moving_circle, new PrecipFragment())
-                                .commit();
-                        movingCircle.animate().translationY(400f);
-                        firstDotView.setBackgroundResource(R.drawable.dot);
-                        secondDotView.setBackgroundResource(R.drawable.dot_selected);
-                        thirdDotView.setBackgroundResource(R.drawable.dot);
+                        circleFragment.replaceContainer(position);
+                        fragmentBottom.changeDotPosition(position);
                         break;
                     case 2:
-                        System.out.println("Page 3");
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.moving_circle, new SunFragment())
-                                .commit();
-                        movingCircle.animate().translationY(-600f);
-                        firstDotView.setBackgroundResource(R.drawable.dot);
-                        secondDotView.setBackgroundResource(R.drawable.dot);
-                        thirdDotView.setBackgroundResource(R.drawable.dot_selected);
+                        circleFragment.replaceContainer(position);
+                        fragmentBottom.changeDotPosition(position);
                         break;
                 }
             }
@@ -147,7 +137,6 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
             }
         };
     }
-
 
     @Override
     public void getForecastData(Forecast data) {

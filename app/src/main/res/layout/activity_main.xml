@@ -32,30 +32,15 @@
 
     </FrameLayout>
     <!--Footer-->
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/footer"
         android:layout_below="@id/view_pager"
-        android:orientation="horizontal"
         android:layout_width="90dp"
         android:layout_height="30dp"
         android:layout_marginTop="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true">
-        <ImageView
-            android:id="@+id/first_dot_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/dot_selected"/>
-        <ImageView
-            android:id="@+id/second_dot_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/dot"/>
-        <ImageView
-            android:id="@+id/third_dot_view"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/dot"/>
-    </LinearLayout>
+
+    </FrameLayout>
 
 </RelativeLayout>
