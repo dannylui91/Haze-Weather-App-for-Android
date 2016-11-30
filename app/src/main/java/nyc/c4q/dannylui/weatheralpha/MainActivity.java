@@ -6,11 +6,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -22,31 +20,23 @@ import nyc.c4q.dannylui.weatheralpha.fragments.PrecipFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.SunFragment;
 import nyc.c4q.dannylui.weatheralpha.models.Forecast;
 import nyc.c4q.dannylui.weatheralpha.models.Location;
-import nyc.c4q.dannylui.weatheralpha.network.DarkSkyClient;
-import nyc.c4q.dannylui.weatheralpha.network.GeolocationClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import nyc.c4q.dannylui.weatheralpha.network.WeatherCallback;
+import nyc.c4q.dannylui.weatheralpha.network.WeatherFactory;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements WeatherCallback {
     private FrameLayout movingCircle;
 
     private static final String TAG = MainActivity.class.getName();
-    private GeolocationClient geolocationClient;
-    private DarkSkyClient darkSkyClient;
-    private String currentLocation;
-
     private ViewPager pager;
 
-    private TextView header;
     private FragmentManager fragmentManager;
-
 
     private ImageView firstDotView;
     private ImageView secondDotView;
     private ImageView thirdDotView;
 
-    private CurrentWeatherFragment cwFrag;
+    public static CurrentWeatherFragment cwFrag;
+    public static HeaderDailyFragment fragmentTop;
     private PrecipFragment pFrag;
 
     @Override
@@ -54,13 +44,13 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setBackgroundImage();
+        WeatherFactory weatherFactory = new WeatherFactory(this);
+
         movingCircle = (FrameLayout) findViewById(R.id.moving_circle);
 
-        header = (TextView) findViewById(R.id.header_view);
-
-        fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_top, new HeaderDailyFragment())
+        fragmentTop = new HeaderDailyFragment();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_top, fragmentTop)
                 .commit();
 
         initViewPager();
@@ -76,11 +66,6 @@ public class MainActivity extends FragmentActivity {
             pager.getLayoutParams().width = width;
             pager.getLayoutParams().height = width;
         }
-
-
-
-        //Get Weather Data
-        findGeoLocation();
     }
 
     private void setBackgroundImage() {
@@ -129,7 +114,6 @@ public class MainActivity extends FragmentActivity {
                                 .replace(R.id.moving_circle, cwFrag)
                                 .commit();
                         movingCircle.animate().translationY(0f);
-                        header.setText(currentLocation);
                         firstDotView.setBackgroundResource(R.drawable.dot_selected);
                         secondDotView.setBackgroundResource(R.drawable.dot);
                         thirdDotView.setBackgroundResource(R.drawable.dot);
@@ -140,7 +124,6 @@ public class MainActivity extends FragmentActivity {
                                 .replace(R.id.moving_circle, new PrecipFragment())
                                 .commit();
                         movingCircle.animate().translationY(400f);
-                        header.setText("Next 24 Hours");
                         firstDotView.setBackgroundResource(R.drawable.dot);
                         secondDotView.setBackgroundResource(R.drawable.dot_selected);
                         thirdDotView.setBackgroundResource(R.drawable.dot);
@@ -151,7 +134,6 @@ public class MainActivity extends FragmentActivity {
                                 .replace(R.id.moving_circle, new SunFragment())
                                 .commit();
                         movingCircle.animate().translationY(-600f);
-                        header.setText("Next 7 Days");
                         firstDotView.setBackgroundResource(R.drawable.dot);
                         secondDotView.setBackgroundResource(R.drawable.dot);
                         thirdDotView.setBackgroundResource(R.drawable.dot_selected);
@@ -167,44 +149,16 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    public void findGeoLocation() {
-        geolocationClient = geolocationClient.getInstance();
-        Call<Location> call = geolocationClient.getLocation();
-        call.enqueue(new Callback<Location>() {
-            @Override
-            public void onResponse(Call<Location> call, Response<Location> response) {
-                Location location = response.body();
-                header.setText(currentLocation = location.getCity() + ", " + location.getRegionName());
-                findForecast(location);
-            }
-
-            @Override
-            public void onFailure(Call<Location> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
-            }
-        });
+    @Override
+    public void getForecastData(Forecast data) {
+        System.out.println("Got forecast data");
+        fragmentTop.update(data);
+        cwFrag = new CurrentWeatherFragment();
+        cwFrag.update(data);
     }
 
-    public void findForecast(Location location) {
-        darkSkyClient = darkSkyClient.getInstance();
-        Call<Forecast> call = darkSkyClient.getForecast(location.getLat() + "," + location.getLon());
-        call.enqueue(new Callback<Forecast>() {
-            @Override
-            public void onResponse(Call<Forecast> call, Response<Forecast> response) {
-                Forecast forecast = response.body();
-                ViewPagerAdapter viewPagerAdapter = (ViewPagerAdapter) pager.getAdapter();
-                viewPagerAdapter.update(forecast);
-                cwFrag = new CurrentWeatherFragment();
-                cwFrag.update(forecast);
-
-                HeaderDailyFragment fragment = (HeaderDailyFragment) fragmentManager.findFragmentById(R.id.fragment_top);
-                fragment.setData(forecast);
-            }
-
-            @Override
-            public void onFailure(Call<Forecast> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
-            }
-        });
+    @Override
+    public void getLocationData(Location data) {
+        System.out.println("Got location data");
     }
 }

@@ -20,6 +20,7 @@ import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
  */
 
 public class CurrentWeatherFragment extends Fragment implements UpdateableFragment {
+    private View rootView;
     private Forecast forecastData;
 
     private TextView currentHiView;
@@ -38,7 +39,8 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_current, container, false);
+        rootView = inflater.inflate(R.layout.fragment_current, container, false);
+        return rootView;
     }
 
     @Override
@@ -93,6 +95,9 @@ public class CurrentWeatherFragment extends Fragment implements UpdateableFragme
     @Override
     public void update(Forecast data) {
         forecastData = data;
+        if (rootView != null) {
+            setForecastData();
+        }
     }
 
     public void setForecastData() {

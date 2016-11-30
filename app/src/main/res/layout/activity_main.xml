@@ -10,19 +10,6 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY" />
     <!--Header-->
-    <TextView
-        android:id="@+id/header_view"
-        android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:text="Header"
-        android:textColor="@color/primaryTextColor"
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="italic"
-        android:textSize="20sp"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:gravity="center" />
-
     <FrameLayout
         android:id="@+id/fragment_top"
         android:layout_width="match_parent"

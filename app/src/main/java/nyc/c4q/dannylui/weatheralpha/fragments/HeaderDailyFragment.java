@@ -33,7 +33,7 @@ public class HeaderDailyFragment extends Fragment {
     private TextView dayFourCircleView;
     private TextView dayFiveCircleView;
 
-    private Forecast forecast;
+    private Forecast forecastData;
 
 
     @Nullable
@@ -56,22 +56,31 @@ public class HeaderDailyFragment extends Fragment {
         dayThreeCircleView = (TextView) view.findViewById(R.id.day_three_circle_view);
         dayFourCircleView = (TextView) view.findViewById(R.id.day_four_circle_view);
         dayFiveCircleView = (TextView) view.findViewById(R.id.day_five_circle_view);
+
+        if (forecastData != null) {
+            setData();
+        }
     }
 
-    public void setData(Forecast forecast) {
-        dayOneView.setText(ConvertUnixTs.toDayOfWeek(forecast.getDaily().getData().get(0).getTime()));
-        dayTwoView.setText(ConvertUnixTs.toDayOfWeek(forecast.getDaily().getData().get(1).getTime()));
-        dayThreeView.setText(ConvertUnixTs.toDayOfWeek(forecast.getDaily().getData().get(2).getTime()));
-        dayFourView.setText(ConvertUnixTs.toDayOfWeek(forecast.getDaily().getData().get(3).getTime()));
-        dayFiveView.setText(ConvertUnixTs.toDayOfWeek(forecast.getDaily().getData().get(4).getTime()));
+    public void update(Forecast forecast) {
+        forecastData = forecast;
+        setData();
+    }
 
-        dayOneCircleView.setText(String.valueOf(Math.round(forecast.getDaily().getData().get(0).getTemperatureMax())));
-        dayTwoCircleView.setText(String.valueOf(Math.round(forecast.getDaily().getData().get(1).getTemperatureMax())));
-        dayThreeCircleView.setText(String.valueOf(Math.round(forecast.getDaily().getData().get(2).getTemperatureMax())));
-        dayFourCircleView.setText(String.valueOf(Math.round(forecast.getDaily().getData().get(3).getTemperatureMax())));
-        dayFiveCircleView.setText(String.valueOf(Math.round(forecast.getDaily().getData().get(4).getTemperatureMax())));
+    public void setData() {
+        dayOneView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(0).getTime()));
+        dayTwoView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(1).getTime()));
+        dayThreeView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(2).getTime()));
+        dayFourView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(3).getTime()));
+        dayFiveView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(4).getTime()));
 
-        setCircleViewPositions(forecast);
+        dayOneCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMax())));
+        dayTwoCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(1).getTemperatureMax())));
+        dayThreeCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(2).getTemperatureMax())));
+        dayFourCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(3).getTemperatureMax())));
+        dayFiveCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(4).getTemperatureMax())));
+
+        setCircleViewPositions(forecastData);
     }
 
     public void setCircleViewPositions(Forecast forecast) {
