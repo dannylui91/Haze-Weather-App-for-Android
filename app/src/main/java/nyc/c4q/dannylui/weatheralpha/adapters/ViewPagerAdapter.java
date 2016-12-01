@@ -42,4 +42,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragmentList.add(fragment);
         notifyDataSetChanged();
     }
+
+    public Fragment getFragment(int position) {
+        return fragmentList.get(position);
+    }
 }

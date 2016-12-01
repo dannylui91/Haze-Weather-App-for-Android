@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -21,6 +22,12 @@ import nyc.c4q.dannylui.weatheralpha.utility.ConvertUnixTs;
  */
 
 public class HeaderFragment extends Fragment {
+    private LinearLayout dayOneBg;
+    private LinearLayout dayTwoBg;
+    private LinearLayout dayThreeBg;
+    private LinearLayout dayFourBg;
+    private LinearLayout dayFiveBg;
+
     private TextView dayOneView;
     private TextView dayTwoView;
     private TextView dayThreeView;
@@ -39,12 +46,18 @@ public class HeaderFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.daily_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_header, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        dayOneBg = (LinearLayout) view.findViewById(R.id.day_one_bg);
+        dayTwoBg = (LinearLayout) view.findViewById(R.id.day_two_bg);
+        dayThreeBg = (LinearLayout) view.findViewById(R.id.day_three_bg);
+        dayFourBg = (LinearLayout) view.findViewById(R.id.day_four_bg);
+        dayFiveBg = (LinearLayout) view.findViewById(R.id.day_five_bg);
+
         dayOneView = (TextView) view.findViewById(R.id.day_one_view);
         dayTwoView = (TextView) view.findViewById(R.id.day_two_view);
         dayThreeView = (TextView) view.findViewById(R.id.day_three_view);
@@ -103,19 +116,19 @@ public class HeaderFragment extends Fragment {
     private void animateCircle(long day, TextView dayView, List<Long> list) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(0) == day) {
-                dayView.animate().yBy(50f);
+                dayView.animate().translationY(50f);
             }
             if (list.get(1) == day) {
-                dayView.animate().yBy(25f);
+                dayView.animate().translationY(25f);
             }
             if (list.get(2) == day) {
-                dayView.animate().yBy(0f);
+                dayView.animate().translationY(0f);
             }
             if (list.get(3) == day) {
-                dayView.animate().yBy(-25f);
+                dayView.animate().translationY(-25f);
             }
             if (list.get(4) == day) {
-                dayView.animate().yBy(-50f);
+                dayView.animate().translationY(-50f);
             }
         }
     }
@@ -124,11 +137,48 @@ public class HeaderFragment extends Fragment {
     public void changeData(int position) {
         switch (position) {
             case 0:
+                setDefaultPosition();
+                setSunTheme();
                 break;
             case 1:
+                setCandyAppleTheme();
                 break;
             case 2:
+                setDefaultPosition();
+                setRainTheme();
                 break;
         }
+    }
+
+    public void setDefaultPosition() {
+        dayOneCircleView.animate().translationY(0f);
+        dayTwoCircleView.animate().translationY(0f);
+        dayThreeCircleView.animate().translationY(0f);
+        dayFourCircleView.animate().translationY(0f);
+        dayFiveCircleView.animate().translationY(0f);
+    }
+
+    public void setSunTheme() {
+        dayOneBg.setBackgroundResource(R.color.sunOne);
+        dayTwoBg.setBackgroundResource(R.color.sunTwo);
+        dayThreeBg.setBackgroundResource(R.color.sunThree);
+        dayFourBg.setBackgroundResource(R.color.sunFour);
+        dayFiveBg.setBackgroundResource(R.color.sunFive);
+    }
+
+    public void setCandyAppleTheme() {
+        dayOneBg.setBackgroundResource(R.color.candyAppleOne);
+        dayTwoBg.setBackgroundResource(R.color.candyAppleTwo);
+        dayThreeBg.setBackgroundResource(R.color.candyAppleThree);
+        dayFourBg.setBackgroundResource(R.color.candyAppleFour);
+        dayFiveBg.setBackgroundResource(R.color.candyAppleFive);
+    }
+
+    public void setRainTheme() {
+        dayOneBg.setBackgroundResource(R.color.rainOne);
+        dayTwoBg.setBackgroundResource(R.color.rainTwo);
+        dayThreeBg.setBackgroundResource(R.color.rainThree);
+        dayFourBg.setBackgroundResource(R.color.rainFour);
+        dayFiveBg.setBackgroundResource(R.color.rainFive);
     }
 }

@@ -6,9 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import nyc.c4q.dannylui.weatheralpha.adapters.ViewPagerAdapter;
 import nyc.c4q.dannylui.weatheralpha.fragments.CircleFragment;
@@ -27,14 +26,16 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     private HeaderFragment headerFragment;
     private FooterFragment footerFragment;
 
+    private RelativeLayout mainContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainContainer = (RelativeLayout) findViewById(R.id.main_container) ;
 
         getWeatherInformation();
-        setBackgroundImage();
-        initialize();
+        //setBackgroundImage();
+        initializeCircle();
         inflateFiveDayHeader();
         inflateFooter();
         setupViewPager();
@@ -46,11 +47,19 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     }
 
     private void setBackgroundImage() {
-        ImageView backgroundGifView = (ImageView) findViewById(R.id.background_gif_view);
-        Glide.with(this).load(R.drawable.animation_bg_candy).into(backgroundGifView);
+        //ImageView backgroundGifView = (ImageView) findViewById(R.id.background_gif_view);
+        //Glide.with(this).load(R.drawable.animation_bg_candy).into(backgroundGifView);
     }
 
-    private void initialize() {
+    private void initializeCircle() {
+        FrameLayout movingCircle = (FrameLayout) findViewById(R.id.moving_circle);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            DisplayMetrics metrics = this.getResources().getDisplayMetrics();
+            int width = metrics.widthPixels;
+            movingCircle.getLayoutParams().width = width;
+            movingCircle.getLayoutParams().height = width;
+        }
+
         circleFragment = new CircleFragment();
         System.out.println("Inflating circleFrag");
         getSupportFragmentManager().beginTransaction()
@@ -90,23 +99,12 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
             }
         });
 
-        setViewPagerWithSameWidthHeight();
-
         pager.post(new Runnable() {
             @Override
             public void run() {
                 pager.setCurrentItem(adapter.CENTER_PAGE);
             }
         });
-    }
-
-    private void setViewPagerWithSameWidthHeight() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            DisplayMetrics metrics = this.getResources().getDisplayMetrics();
-            int width = metrics.widthPixels;
-            pager.getLayoutParams().width = width;
-            pager.getLayoutParams().height = width;
-        }
     }
 
     public ViewPager.OnPageChangeListener onPageChangeListener() {
@@ -118,6 +116,7 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
 
             @Override
             public void onPageSelected(int position) {
+                ((EmptyFragment)(((ViewPagerAdapter)pager.getAdapter()).getFragment(position))).changeBackground(position);
                 circleFragment.replaceContainer(position);
                 headerFragment.changeData(position);
                 footerFragment.changeDotPosition(position);

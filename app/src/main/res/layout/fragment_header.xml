@@ -7,11 +7,12 @@
     
     <!-- FIRST BLOCK -->
     <LinearLayout
+        android:id="@+id/day_one_bg"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#8090F7FC">
+        android:background="@color/candyAppleOne">
 
         <LinearLayout
             android:orientation="vertical"
@@ -45,11 +46,12 @@
 
     <!-- SECOND BLOCK -->
     <LinearLayout
+        android:id="@+id/day_two_bg"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#7090F7FC">
+        android:background="@color/candyAppleTwo">
 
         <LinearLayout
             android:orientation="vertical"
@@ -83,11 +85,12 @@
 
     <!-- THIRD BLOCK -->
     <LinearLayout
+        android:id="@+id/day_three_bg"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#A090F7FC">
+        android:background="@color/candyAppleThree">
 
         <LinearLayout
             android:orientation="vertical"
@@ -121,11 +124,12 @@
 
     <!-- FOURTH BLOCK -->
     <LinearLayout
+        android:id="@+id/day_four_bg"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#50C6EDEF">
+        android:background="@color/candyAppleFour">
 
         <LinearLayout
             android:orientation="vertical"
@@ -159,11 +163,12 @@
 
     <!-- FIFTH BLOCK -->
     <LinearLayout
+        android:id="@+id/day_five_bg"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#DDFDC7FF">
+        android:background="@color/candyAppleFive">
 
         <LinearLayout
             android:orientation="vertical"

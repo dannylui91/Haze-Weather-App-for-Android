@@ -5,4 +5,31 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="primaryTextColor">#4FA4C1</color>
+
+    <!-- Header candyAppleTheme -->
+    <color name="candyAppleOne">#8090F7FC</color>
+    <color name="candyAppleTwo">#7090F7FC</color>
+    <color name="candyAppleThree">#A090F7FC</color>
+    <color name="candyAppleFour">#50C6EDEF</color>
+    <color name="candyAppleFive">#DDFDC7FF</color>
+
+    <!-- Header sunTheme -->
+    <color name="sunOne">#80FF7631</color>
+    <color name="sunTwo">#70D56229</color>
+    <color name="sunThree">#A049210E</color>
+    <color name="sunFour">#50CB5923</color>
+    <color name="sunFive">#DDFFA35A</color>
+
+    <!-- Header rainTheme -->
+    <color name="rainOne">#8086FFCA</color>
+    <color name="rainTwo">#7064D5A3</color>
+    <color name="rainThree">#A07EF9C2</color>
+    <color name="rainFour">#505AB78E</color>
+    <color name="rainFive">#DD31614C</color>
+
+    <!-- Main background -->
+    <color name="turquoise">#FF59BB91</color>
+    <color name="brown">#FFAB7B51</color>
+    <color name="blue">#FF6198B9</color>
+
 </resources>
