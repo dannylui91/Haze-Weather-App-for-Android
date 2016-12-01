@@ -19,7 +19,6 @@ public class WeatherFactory {
 
     public WeatherFactory(WeatherCallback weatherCallback) {
         this.weatherCallback = weatherCallback;
-        findGeoLocation();
     }
 
     private void findGeoLocation() {
@@ -55,6 +54,10 @@ public class WeatherFactory {
                 Log.d(TAG, t.getMessage());
             }
         });
+    }
+
+    public void retrieveWeatherData() {
+        findGeoLocation();
     }
 }
 

@@ -161,7 +161,6 @@ public class CurrentWeatherFragment extends Fragment {
         });
 
         t.setAnimation(fadeIn);
-
     }
 
     @Override

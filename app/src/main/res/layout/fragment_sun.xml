@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/circle"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
+        <View
+            android:id="@+id/invisibile_divider"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- Cloud icon -->
+        <TextView
+            android:id="@+id/current_cloud"
+            android:layout_toLeftOf="@id/invisibile_divider"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:layout_marginRight="50dp"
+            android:textColor="@color/primaryTextColor"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="10dp"
+            android:textSize="15sp"
+            android:text="hi"
+            android:background="@drawable/circle"/>
+
+        <!-- UV index -->
+        <TextView
+            android:id="@+id/current_uv"
+            android:layout_toRightOf="@id/invisibile_divider"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:layout_marginLeft="50dp"
+            android:textColor="@color/primaryTextColor"
+            android:fontFamily="sans-serif-light"
+            android:text="feel"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:background="@drawable/circle"/>
+
+        <!-- Hour of sun left -->
+        <TextView
+            android:id="@+id/current_sunleft"
+            android:layout_below="@id/current_cloud"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/primaryTextColor"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="10dp"
+            android:textSize="50sp"
+            android:text="50"
+            android:background="@drawable/circle"/>
+
+        <!-- Sunrise -->
+        <TextView
+            android:id="@+id/current_sunrise"
+            android:layout_below="@id/current_sunleft"
+            android:layout_toLeftOf="@id/invisibile_divider"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:layout_marginRight="80dp"
+
+            android:layout_marginTop="-20dp"
+            android:textColor="@color/primaryTextColor"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:text="lo"
+            android:background="@drawable/circle"/>
+
+        <!-- Sunset -->
+        <TextView
+            android:id="@+id/current_sunset"
+            android:layout_below="@id/current_sunleft"
+            android:layout_toLeftOf="@id/invisibile_divider"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/primaryTextColor"
+            android:fontFamily="sans-serif-light"
+            android:text="rain"
+            android:background="@drawable/circle"/>
+
+        <!-- Cloud coverage -->
+        <TextView
+            android:id="@+id/current_cloudcoverage"
+            android:layout_below="@id/current_sunleft"
+            android:layout_toRightOf="@id/invisibile_divider"
+
+            android:layout_marginLeft="50dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:textColor="@color/primaryTextColor"
+            android:fontFamily="sans-serif-light"
+            android:text="wind"
+            android:background="@drawable/circle"/>
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nyc.c4q.dannylui.weatheralpha.R;
+import nyc.c4q.dannylui.weatheralpha.models.Forecast;
 
 /**
  * Created by dannylui on 11/30/16.
  */
 
-public class CircleContainerFragment extends Fragment {
+public class CircleFragment extends Fragment {
     private View rootView;
     private CurrentWeatherFragment currentWeatherFragment;
     private PrecipFragment precipFragment;
@@ -29,6 +30,7 @@ public class CircleContainerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        System.out.println("Init 3 Frags");
         currentWeatherFragment = new CurrentWeatherFragment();
         precipFragment = new PrecipFragment();
         sunFragment = new SunFragment();
@@ -38,23 +40,30 @@ public class CircleContainerFragment extends Fragment {
         switch (position) {
             case 0:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.general_circle_container, currentWeatherFragment)
+                        .replace(R.id.general_circle_container, sunFragment)
                         .commit();
-                rootView.animate().translationY(0f);
+                rootView.animate().translationY(-50f);
                 break;
             case 1:
+                System.out.println("Called replace Container 1");
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.general_circle_container, precipFragment)
+                        .replace(R.id.general_circle_container, currentWeatherFragment)
                         .commit();
-                rootView.animate().translationY(400f);
+                rootView.animate().translationY(250f);
                 break;
             case 2:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.general_circle_container, sunFragment)
+                        .replace(R.id.general_circle_container, precipFragment)
                         .commit();
-                rootView.animate().translationY(-500f);
+                rootView.animate().translationY(450f);
                 break;
         }
+    }
+
+    public void updateAll(Forecast data) {
+        sunFragment.update(data);
+        currentWeatherFragment.update(data);
+        precipFragment.update(data);
     }
 
 }

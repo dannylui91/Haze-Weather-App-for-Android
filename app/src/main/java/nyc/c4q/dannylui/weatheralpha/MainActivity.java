@@ -6,32 +6,26 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import nyc.c4q.dannylui.weatheralpha.adapters.ViewPagerAdapter;
-import nyc.c4q.dannylui.weatheralpha.fragments.CircleContainerFragment;
-import nyc.c4q.dannylui.weatheralpha.fragments.CurrentWeatherFragment;
+import nyc.c4q.dannylui.weatheralpha.fragments.CircleFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.EmptyFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.FooterFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.HeaderFragment;
-import nyc.c4q.dannylui.weatheralpha.fragments.PrecipFragment;
 import nyc.c4q.dannylui.weatheralpha.models.Forecast;
 import nyc.c4q.dannylui.weatheralpha.models.Location;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherCallback;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherFactory;
 
 public class MainActivity extends FragmentActivity implements WeatherCallback {
-    private FrameLayout movingCircle;
     private ViewPager pager;
 
-    private CircleContainerFragment circleFragment;
-    private HeaderFragment fragmentTop;
-    private FooterFragment fragmentBottom;
-    private CurrentWeatherFragment cwFrag;
-    private PrecipFragment pFrag;
+    private CircleFragment circleFragment;
+    private HeaderFragment headerFragment;
+    private FooterFragment footerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +36,13 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
         setBackgroundImage();
         initialize();
         inflateFiveDayHeader();
-        setupViewPager();
         inflateFooter();
+        setupViewPager();
     }
 
     private void getWeatherInformation() {
         WeatherFactory weatherFactory = new WeatherFactory(this);
+        weatherFactory.retrieveWeatherData();
     }
 
     private void setBackgroundImage() {
@@ -56,7 +51,8 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     }
 
     private void initialize() {
-        circleFragment = new CircleContainerFragment();
+        circleFragment = new CircleFragment();
+        System.out.println("Inflating circleFrag");
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.moving_circle, circleFragment)
                 .commit();
@@ -64,27 +60,27 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     }
 
     private void inflateFiveDayHeader() {
-        fragmentTop = new HeaderFragment();
+        headerFragment = new HeaderFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_top, fragmentTop)
+                .add(R.id.fragment_top, headerFragment)
                 .commit();
     }
 
     private void inflateFooter() {
-        fragmentBottom = new FooterFragment();
+        footerFragment = new FooterFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.footer, fragmentBottom)
+                .add(R.id.footer, footerFragment)
                 .commit();
     }
 
     public void setupViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new EmptyFragment());
         adapter.addFragment(new EmptyFragment());
 
         pager.setAdapter(adapter);
-        //pager.setOffscreenPageLimit(2);
+        pager.setOffscreenPageLimit(2);
         pager.addOnPageChangeListener(onPageChangeListener());
         pager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
@@ -95,6 +91,13 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
         });
 
         setViewPagerWithSameWidthHeight();
+
+        pager.post(new Runnable() {
+            @Override
+            public void run() {
+                pager.setCurrentItem(adapter.CENTER_PAGE);
+            }
+        });
     }
 
     private void setViewPagerWithSameWidthHeight() {
@@ -115,20 +118,9 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        circleFragment.replaceContainer(position);
-                        fragmentBottom.changeDotPosition(position);
-                        break;
-                    case 1:
-                        circleFragment.replaceContainer(position);
-                        fragmentBottom.changeDotPosition(position);
-                        break;
-                    case 2:
-                        circleFragment.replaceContainer(position);
-                        fragmentBottom.changeDotPosition(position);
-                        break;
-                }
+                circleFragment.replaceContainer(position);
+                headerFragment.changeData(position);
+                footerFragment.changeDotPosition(position);
             }
 
             @Override
@@ -141,9 +133,8 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     @Override
     public void getForecastData(Forecast data) {
         System.out.println("Got forecast data");
-        fragmentTop.update(data);
-        cwFrag = new CurrentWeatherFragment();
-        cwFrag.update(data);
+        headerFragment.update(data);
+        circleFragment.updateAll(data);
     }
 
     @Override

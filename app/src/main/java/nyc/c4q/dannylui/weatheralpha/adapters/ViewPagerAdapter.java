@@ -15,6 +15,7 @@ import nyc.c4q.dannylui.weatheralpha.models.Forecast;
  */
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    public static final int CENTER_PAGE = 1;
     private List<Fragment> fragmentList = new ArrayList<>();
     private Forecast forecastData;
 

@@ -121,4 +121,14 @@ public class HeaderFragment extends Fragment {
     }
 
 
+    public void changeData(int position) {
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
 }
