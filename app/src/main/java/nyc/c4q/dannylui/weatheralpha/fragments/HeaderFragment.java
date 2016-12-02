@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import nyc.c4q.dannylui.weatheralpha.utility.ConvertUnixTs;
 
 /**
@@ -41,7 +41,7 @@ public class HeaderFragment extends Fragment {
     private TextView dayFiveCircleView;
 
     private Forecast forecastData;
-
+    private static int currentPosition;
 
     @Nullable
     @Override
@@ -70,14 +70,50 @@ public class HeaderFragment extends Fragment {
         dayFourCircleView = (TextView) view.findViewById(R.id.day_four_circle_view);
         dayFiveCircleView = (TextView) view.findViewById(R.id.day_five_circle_view);
 
+//        if (forecastData != null) {
+//            setData();
+//        }
+    }
+
+    public void update(Forecast forecast) {
+        forecastData = forecast;
+        changeData(currentPosition);
+    }
+
+    public void changeData(int position) {
+        currentPosition = position;
+        switch (position) {
+            case 0:
+                setDefaultPosition();
+                setSunTheme();
+                break;
+            case 1:
+                setCurrentTempData();
+                setCandyAppleTheme();
+                break;
+            case 2:
+                setDefaultPosition();
+                setRainTheme();
+                break;
+        }
+    }
+
+    private void setCurrentTempData() {
         if (forecastData != null) {
             setData();
         }
     }
 
-    public void update(Forecast forecast) {
-        forecastData = forecast;
-        setData();
+    private void setSunlightData() {
+        if (forecastData != null) {
+            setData();
+        }
+    }
+
+    private void setRainChanceData() {
+        if (forecastData != null) {
+            setData();
+        }
     }
 
     public void setData() {
@@ -130,23 +166,6 @@ public class HeaderFragment extends Fragment {
             if (list.get(4) == day) {
                 dayView.animate().translationY(-50f);
             }
-        }
-    }
-
-
-    public void changeData(int position) {
-        switch (position) {
-            case 0:
-                setDefaultPosition();
-                setSunTheme();
-                break;
-            case 1:
-                setCandyAppleTheme();
-                break;
-            case 2:
-                setDefaultPosition();
-                setRainTheme();
-                break;
         }
     }
 

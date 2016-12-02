@@ -1,4 +1,4 @@
-package nyc.c4q.dannylui.weatheralpha.models;
+package nyc.c4q.dannylui.weatheralpha.models.darksky;
 
 /**
  * Created by dannylui on 10/25/16.

@@ -12,7 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
 
 /**

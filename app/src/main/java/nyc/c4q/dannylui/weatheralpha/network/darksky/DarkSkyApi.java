@@ -1,6 +1,6 @@
-package nyc.c4q.dannylui.weatheralpha.network;
+package nyc.c4q.dannylui.weatheralpha.network.darksky;
 
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

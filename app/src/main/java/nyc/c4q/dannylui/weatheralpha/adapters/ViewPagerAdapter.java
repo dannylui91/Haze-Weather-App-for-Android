@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 
 /**
  * Created by dannylui on 10/25/16.

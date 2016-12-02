@@ -7,15 +7,14 @@ import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import nyc.c4q.dannylui.weatheralpha.adapters.ViewPagerAdapter;
 import nyc.c4q.dannylui.weatheralpha.fragments.CircleFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.EmptyFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.FooterFragment;
 import nyc.c4q.dannylui.weatheralpha.fragments.HeaderFragment;
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
-import nyc.c4q.dannylui.weatheralpha.models.Location;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.ipapi.Location;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherCallback;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherFactory;
 
@@ -26,33 +25,26 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     private HeaderFragment headerFragment;
     private FooterFragment footerFragment;
 
-    private RelativeLayout mainContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainContainer = (RelativeLayout) findViewById(R.id.main_container) ;
 
-        getWeatherInformation();
-        //setBackgroundImage();
+        retrieveWeatherData();
         initializeCircle();
         inflateFiveDayHeader();
         inflateFooter();
         setupViewPager();
     }
 
-    private void getWeatherInformation() {
+    private void retrieveWeatherData() {
         WeatherFactory weatherFactory = new WeatherFactory(this);
         weatherFactory.retrieveWeatherData();
     }
 
-    private void setBackgroundImage() {
-        //ImageView backgroundGifView = (ImageView) findViewById(R.id.background_gif_view);
-        //Glide.with(this).load(R.drawable.animation_bg_candy).into(backgroundGifView);
-    }
-
     private void initializeCircle() {
         FrameLayout movingCircle = (FrameLayout) findViewById(R.id.moving_circle);
+
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             DisplayMetrics metrics = this.getResources().getDisplayMetrics();
             int width = metrics.widthPixels;

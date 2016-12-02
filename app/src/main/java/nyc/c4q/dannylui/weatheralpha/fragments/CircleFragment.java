@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 
 /**
  * Created by dannylui on 11/30/16.

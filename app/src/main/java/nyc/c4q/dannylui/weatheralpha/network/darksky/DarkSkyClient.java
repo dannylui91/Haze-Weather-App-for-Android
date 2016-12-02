@@ -1,7 +1,7 @@
-package nyc.c4q.dannylui.weatheralpha.network;
+package nyc.c4q.dannylui.weatheralpha.network.darksky;
 
 import nyc.c4q.dannylui.weatheralpha.BuildConfig;
-import nyc.c4q.dannylui.weatheralpha.models.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

@@ -1,4 +1,4 @@
-package nyc.c4q.dannylui.weatheralpha.models;
+package nyc.c4q.dannylui.weatheralpha.models.darksky;
 
 /**
  * Created by dannylui on 10/25/16.
@@ -13,7 +13,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("org.jsonschema2pojo")
-public class Hourly {
+public class Daily {
 
     @SerializedName("summary")
     @Expose
@@ -23,7 +23,7 @@ public class Hourly {
     public String icon;
     @SerializedName("data")
     @Expose
-    public List<Datum_> data = new ArrayList<Datum_>();
+    public List<Datum__> data = new ArrayList<Datum__>();
 
     public String getSummary() {
         return summary;
@@ -33,7 +33,7 @@ public class Hourly {
         return icon;
     }
 
-    public List<Datum_> getData() {
+    public List<Datum__> getData() {
         return data;
     }
 }
