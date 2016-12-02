@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.RainModel;
+import nyc.c4q.dannylui.weatheralpha.models.SunModel;
+import nyc.c4q.dannylui.weatheralpha.models.TempModel;
 
 /**
  * Created by dannylui on 11/30/16.
@@ -60,10 +62,10 @@ public class CircleFragment extends Fragment {
         }
     }
 
-    public void updateAll(Forecast data) {
-        sunFragment.update(data);
-        currentWeatherFragment.update(data);
-        precipFragment.update(data);
+    public void updateAll(SunModel sunModel, TempModel tempModel, RainModel rainModel) {
+        sunFragment.updateData(sunModel);
+        currentWeatherFragment.updateData(tempModel);
+        precipFragment.updateData(rainModel);
     }
 
 }

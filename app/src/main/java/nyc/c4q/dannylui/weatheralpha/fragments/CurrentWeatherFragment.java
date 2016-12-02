@@ -12,8 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
-import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
+import nyc.c4q.dannylui.weatheralpha.models.TempModel;
 
 /**
  * Created by dannylui on 10/25/16.
@@ -21,7 +20,7 @@ import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
 
 public class CurrentWeatherFragment extends Fragment {
     private View rootView;
-    private Forecast forecastData;
+    private TempModel tempModel;
 
     private TextView currentHiView;
     private TextView currentLoView;
@@ -46,15 +45,15 @@ public class CurrentWeatherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        currentHiView = (TextView) view.findViewById(R.id.current_hi_view);
+        currentHiView = (TextView) view.findViewById(R.id.high_temp);
         currentLoView = (TextView) view.findViewById(R.id.current_lo_view);
         currentTempView = (TextView) view.findViewById(R.id.current_temp_view);
         currentFeelView = (TextView) view.findViewById(R.id.current_feel_view);
         currentWindSpeedView = (TextView) view.findViewById(R.id.current_wind_view);
         currentRainChanceView = (TextView) view.findViewById(R.id.current_rain_chance_view);
 
-        if (forecastData != null) {
-            setForecastData();
+        if (tempModel != null) {
+            attachDataToViews(tempModel);
         }
 
         origWidth = currentTempView.getLayoutParams().width;
@@ -92,28 +91,21 @@ public class CurrentWeatherFragment extends Fragment {
 
     }
 
-    public void update(Forecast data) {
-        forecastData = data;
+    public void updateData(TempModel tempModel) {
+        this.tempModel = tempModel;
         if (rootView != null) {
-            setForecastData();
+            attachDataToViews(tempModel);
         }
     }
 
-    public void setForecastData() {
-        CharSequence currentHigh = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMax()) + "°"), "\nHigh");
-        CharSequence currentLow = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMin()) + "°"), "\nLow");;
-        CharSequence currentTemp = String.valueOf(Math.round(forecastData.getCurrently().getTemperature()) + "°");
-        CharSequence currentFeel = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getCurrently().getApparentTemperature()) + "°"), "\nFeels");
-        CharSequence currentWindSpeed = SpannableUtil.changeTextSize(String.valueOf(Math.round(forecastData.getCurrently().getWindSpeed())), "\nm/h");
-        CharSequence currentRainChance = SpannableUtil.changeTextSize(String.valueOf((int)(forecastData.getCurrently().getPrecipProbability() * 100)), "\n% Rain");
+    public void attachDataToViews(TempModel tempModel) {
 
-
-        currentHiView.setText(currentHigh);
-        currentLoView.setText(currentLow);
-        currentTempView.setText(currentTemp);
-        currentFeelView.setText(currentFeel);
-        currentWindSpeedView.setText(currentWindSpeed);
-        currentRainChanceView.setText(currentRainChance);
+        currentHiView.setText(tempModel.getHighTemp());
+        currentLoView.setText(tempModel.getLowTemp());
+        currentTempView.setText(tempModel.getCurrentTemp());
+        currentFeelView.setText(tempModel.getFeelTemp());
+        currentWindSpeedView.setText(tempModel.getWindSpeed());
+        currentRainChanceView.setText(tempModel.getWindDirection());
     }
 
     public void disableViews() {

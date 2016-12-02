@@ -14,6 +14,9 @@ import java.util.Collections;
 import java.util.List;
 
 import nyc.c4q.dannylui.weatheralpha.R;
+import nyc.c4q.dannylui.weatheralpha.models.RainModel;
+import nyc.c4q.dannylui.weatheralpha.models.SunModel;
+import nyc.c4q.dannylui.weatheralpha.models.TempModel;
 import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import nyc.c4q.dannylui.weatheralpha.utility.ConvertUnixTs;
 
@@ -39,6 +42,10 @@ public class HeaderFragment extends Fragment {
     private TextView dayThreeCircleView;
     private TextView dayFourCircleView;
     private TextView dayFiveCircleView;
+
+    private List<String> sunshineList;
+    private List<String> highTempList;
+    private List<String> rainChanceList;
 
     private Forecast forecastData;
     private static int currentPosition;
@@ -75,8 +82,11 @@ public class HeaderFragment extends Fragment {
 //        }
     }
 
-    public void update(Forecast forecast) {
+    public void updateAll(Forecast forecast, SunModel sunModel, TempModel tempModel, RainModel rainModel) {
         forecastData = forecast;
+        sunshineList = sunModel.getSunshineList();
+        highTempList = tempModel.getHighTempList();
+        rainChanceList = rainModel.getRainChanceList();
         changeData(currentPosition);
     }
 
@@ -84,7 +94,7 @@ public class HeaderFragment extends Fragment {
         currentPosition = position;
         switch (position) {
             case 0:
-                setDefaultPosition();
+                setSunlightData();
                 setSunTheme();
                 break;
             case 1:
@@ -92,52 +102,60 @@ public class HeaderFragment extends Fragment {
                 setCandyAppleTheme();
                 break;
             case 2:
-                setDefaultPosition();
+                setRainChanceData();
                 setRainTheme();
                 break;
         }
     }
 
     private void setCurrentTempData() {
-        if (forecastData != null) {
-            setData();
+        if (highTempList != null) {
+            setData(highTempList);
         }
     }
 
     private void setSunlightData() {
-        if (forecastData != null) {
-            setData();
+        if (sunshineList != null) {
+            setData(sunshineList);
         }
     }
 
     private void setRainChanceData() {
-        if (forecastData != null) {
-            setData();
+        if (rainChanceList != null) {
+            setData(rainChanceList);
         }
     }
 
-    public void setData() {
+    public void setData(List<String> dataList) {
         dayOneView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(0).getTime()));
         dayTwoView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(1).getTime()));
         dayThreeView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(2).getTime()));
         dayFourView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(3).getTime()));
         dayFiveView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(4).getTime()));
 
-        dayOneCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(0).getTemperatureMax())));
-        dayTwoCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(1).getTemperatureMax())));
-        dayThreeCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(2).getTemperatureMax())));
-        dayFourCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(3).getTemperatureMax())));
-        dayFiveCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(4).getTemperatureMax())));
+        dayOneCircleView.setText(dataList.get(0));
+        dayTwoCircleView.setText(dataList.get(1));
+        dayThreeCircleView.setText(dataList.get(2));
+        dayFourCircleView.setText(dataList.get(3));
+        dayFiveCircleView.setText(dataList.get(4));
+        //dayFiveCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(4).getTemperatureMax())));
 
-        setCircleViewPositions(forecastData);
+        setCircleViewPositions(forecastData, dataList);
     }
 
-    public void setCircleViewPositions(Forecast forecast) {
-        long dayOneTemp = Math.round(forecast.getDaily().getData().get(0).apparentTemperatureMax);
-        long dayTwoTemp = Math.round(forecast.getDaily().getData().get(1).apparentTemperatureMax);
-        long dayThreeTemp = Math.round(forecast.getDaily().getData().get(2).apparentTemperatureMax);
-        long dayFourTemp = Math.round(forecast.getDaily().getData().get(3).apparentTemperatureMax);
-        long dayFiveTemp = Math.round(forecast.getDaily().getData().get(4).apparentTemperatureMax);
+    public void setCircleViewPositions(Forecast forecast, List<String> dataList) {
+//        long dayOneTemp = Math.round(forecast.getDaily().getData().get(0).apparentTemperatureMax);
+//        long dayTwoTemp = Math.round(forecast.getDaily().getData().get(1).apparentTemperatureMax);
+//        long dayThreeTemp = Math.round(forecast.getDaily().getData().get(2).apparentTemperatureMax);
+//        long dayFourTemp = Math.round(forecast.getDaily().getData().get(3).apparentTemperatureMax);
+//        long dayFiveTemp = Math.round(forecast.getDaily().getData().get(4).apparentTemperatureMax);
+
+        long dayOneTemp = Integer.parseInt(dataList.get(0));
+        long dayTwoTemp = Integer.parseInt(dataList.get(1));
+        long dayThreeTemp = Integer.parseInt(dataList.get(2));
+        long dayFourTemp = Integer.parseInt(dataList.get(3));
+        long dayFiveTemp = Integer.parseInt(dataList.get(4));
+
 
         List<Long> list = Arrays.asList(dayOneTemp, dayTwoTemp, dayThreeTemp, dayFourTemp, dayFiveTemp);
         Collections.sort(list);

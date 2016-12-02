@@ -12,8 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
-import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
+import nyc.c4q.dannylui.weatheralpha.models.RainModel;
 
 /**
  * Created by dannylui on 11/29/16.
@@ -21,7 +20,7 @@ import nyc.c4q.dannylui.weatheralpha.utility.SpannableUtil;
 
 public class PrecipFragment extends Fragment {
     private View rootView;
-    private Forecast forecastData;
+    private RainModel rainModel;
 
     private TextView rainChance;
     private TextView umbrellaIcon;
@@ -51,8 +50,8 @@ public class PrecipFragment extends Fragment {
         currentAirPressure = (TextView) view.findViewById(R.id.current_pressure);
         currentHumidity = (TextView) view.findViewById(R.id.current_humidity);
 
-        if (forecastData != null) {
-            setForecastData();
+        if (rainModel != null) {
+            attachDataToViews(rainModel);
         }
 
         origWidth = rainChance.getLayoutParams().width;
@@ -88,17 +87,18 @@ public class PrecipFragment extends Fragment {
         });
     }
 
-    public void update(Forecast data) {
-        forecastData = data;
+    public void updateData(RainModel rainModel) {
+        this.rainModel = rainModel;
         if (rootView != null) {
-            setForecastData();
+            attachDataToViews(rainModel);
         }
     }
 
-    public void setForecastData() {
-        CharSequence currentRainChance = SpannableUtil.changeTextSize(String.valueOf((int)(forecastData.getCurrently().getPrecipProbability() * 100)), "\n% Rain");
-
-        rainChance.setText(currentRainChance);
+    public void attachDataToViews(RainModel rainModel) {
+        rainChance.setText(rainModel.getRainChance());
+        currentRainFall.setText(rainModel.getRainDropped());
+        currentHumidity.setText(rainModel.getHumidity());
+        currentAirPressure.setText(rainModel.getPressure());
     }
 
     public void disableViews() {

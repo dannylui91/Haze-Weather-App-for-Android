@@ -13,21 +13,35 @@
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"/>
 
-
         <!-- High Temp -->
-        <TextView
+        <RelativeLayout
             android:id="@+id/current_hi_view"
             android:layout_toLeftOf="@id/invisibile_divider"
+            android:orientation="vertical"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:layout_marginRight="50dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
             android:textSize="15sp"
-            android:text="hi"
-            android:background="@drawable/circle"/>
+            android:background="@drawable/circle">
+            <TextView
+                android:id="@+id/high_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:text="40°"/>
+            <TextView
+                android:layout_below="@id/high_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="5dp"
+                android:textSize="10sp"
+                android:text="High"/>
+        </RelativeLayout>
         <!-- Feel Temp -->
 
         <TextView

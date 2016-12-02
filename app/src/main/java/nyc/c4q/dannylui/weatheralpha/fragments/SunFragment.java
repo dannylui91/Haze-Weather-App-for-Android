@@ -12,7 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
-import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
+import nyc.c4q.dannylui.weatheralpha.models.SunModel;
 
 /**
  * Created by dannylui on 11/29/16.
@@ -20,7 +20,7 @@ import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 
 public class SunFragment extends Fragment {
     private View rootView;
-    private Forecast forecastData;
+    private SunModel sunModel;
 
     private TextView cloudIcon;
     private TextView uvIndex;
@@ -52,8 +52,8 @@ public class SunFragment extends Fragment {
         sunset = (TextView) view.findViewById(R.id.current_sunset);
         cloudCoverage = (TextView) view.findViewById(R.id.current_cloudcoverage);
 
-        if (forecastData != null) {
-            setForecastData();
+        if (sunModel != null) {
+            attachDataToViews(sunModel);
         }
 
         origWidth = sunLeft.getLayoutParams().width;
@@ -89,49 +89,19 @@ public class SunFragment extends Fragment {
         });
     }
 
-    public void update(Forecast data) {
-        forecastData = data;
+    public void updateData(SunModel sunModel) {
+        this.sunModel = sunModel;
         if (rootView != null) {
-            setForecastData();
+            attachDataToViews(sunModel);
         }
     }
 
-    public void setForecastData() {
-        String uv = String.valueOf("0");
-        getSunTime();
-        uvIndex.setText(uv);
-    }
-
-    private void getSunTime() {
-        int sunriseTime = forecastData.getDaily().getData().get(0).getSunriseTime();
-        int sunsetTime = forecastData.getDaily().getData().get(0).getSunsetTime();
-        int currentTime = forecastData.getCurrently().getTime();
-
-
-        System.out.println("Sunrise " + sunriseTime);
-        System.out.println("Sunset " + sunsetTime);
-        System.out.println("CurrentTime " + currentTime);
-
-        double hoursBeforeSunrise = -1;
-        double hoursBeforeSunset = -1;
-        if (currentTime < sunriseTime) {
-            hoursBeforeSunrise = (sunriseTime - currentTime) / 3600;
-        }
-        else if (currentTime > sunriseTime && currentTime < sunsetTime) {
-            hoursBeforeSunset = (sunsetTime - currentTime) / 3600;
-        } else if (currentTime > sunsetTime) {
-            int sunriseTime2 = forecastData.getDaily().getData().get(1).getSunriseTime();
-            hoursBeforeSunrise = (sunriseTime2 - currentTime) / 3600;
-        }
-
-        if (hoursBeforeSunrise != -1) {
-            System.out.println(hoursBeforeSunrise);
-            sunLeft.setText(String.valueOf(Math.round(hoursBeforeSunrise)) + "h");
-        }
-        if (hoursBeforeSunset != -1) {
-            System.out.println(hoursBeforeSunset);
-            sunLeft.setText(String.valueOf(Math.round(hoursBeforeSunset)) + "h");
-        }
+    public void attachDataToViews(SunModel sunModel) {
+        uvIndex.setText(sunModel.getUvIndex());
+        sunrise.setText(sunModel.getSunriseTime());
+        sunset.setText(sunModel.getSunsetTime());
+        sunLeft.setText(sunModel.getSunTime());
+        cloudCoverage.setText(sunModel.getCloudCoverage());
     }
 
     public void disableViews() {
