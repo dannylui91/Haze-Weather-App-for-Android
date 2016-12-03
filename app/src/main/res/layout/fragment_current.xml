@@ -17,23 +17,22 @@
         <RelativeLayout
             android:id="@+id/current_hi_view"
             android:layout_toLeftOf="@id/invisibile_divider"
-            android:orientation="vertical"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:layout_marginRight="50dp"
-            android:textSize="15sp"
             android:background="@drawable/circle">
             <TextView
-                android:id="@+id/high_temp"
+                android:id="@+id/tv_hightemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
                 android:textColor="@color/primaryTextColor"
                 android:fontFamily="sans-serif-light"
                 android:textSize="20sp"
                 android:text="40°"/>
             <TextView
-                android:layout_below="@id/high_temp"
+                android:layout_below="@id/tv_hightemp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/primaryTextColor"
@@ -42,21 +41,36 @@
                 android:textSize="10sp"
                 android:text="High"/>
         </RelativeLayout>
-        <!-- Feel Temp -->
 
-        <TextView
+        <!-- Feel Temp -->
+        <RelativeLayout
             android:id="@+id/current_feel_view"
             android:layout_toRightOf="@id/invisibile_divider"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:gravity="center"
             android:layout_marginLeft="50dp"
-            android:textColor="@color/primaryTextColor"
             android:fontFamily="sans-serif-light"
-            android:text="feel"
-            android:paddingLeft="10dp"
-            android:textSize="20sp"
-            android:background="@drawable/circle"/>
+            android:background="@drawable/circle">
+            <TextView
+                android:id="@+id/tv_feeltemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:text="40°"/>
+            <TextView
+                android:layout_below="@id/tv_feeltemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="5dp"
+                android:textSize="10sp"
+                android:text="Feels"/>
+        </RelativeLayout>
         <!-- Current Temp -->
         <TextView
             android:id="@+id/current_temp_view"
@@ -71,8 +85,9 @@
             android:textSize="50sp"
             android:text="50"
             android:background="@drawable/circle"/>
+
         <!-- Low Temp -->
-        <TextView
+        <RelativeLayout
             android:id="@+id/current_lo_view"
             android:layout_below="@id/current_temp_view"
             android:layout_toLeftOf="@id/invisibile_divider"
@@ -80,15 +95,29 @@
             android:layout_height="70dp"
             android:gravity="center"
             android:layout_marginRight="50dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="20sp"
-            android:text="lo"
-            android:background="@drawable/circle"/>
+            android:background="@drawable/circle">
+            <TextView
+                android:id="@+id/tv_lowtemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:text="40°"/>
+            <TextView
+                android:layout_below="@id/tv_lowtemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="5dp"
+                android:textSize="10sp"
+                android:text="Low"/>
+        </RelativeLayout>
 
         <!-- Rain Chance -->
-        <TextView
+        <RelativeLayout
             android:id="@+id/current_rain_chance_view"
             android:layout_below="@id/current_temp_view"
             android:layout_toRightOf="@id/invisibile_divider"
@@ -97,12 +126,20 @@
             android:gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:text="rain"
-            android:background="@drawable/circle"/>
+            android:background="@drawable/circle">
+            <TextView
+                android:id="@+id/tv_winddirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:text="40°"/>
+        </RelativeLayout>
+
         <!-- Wind Speed -->
-        <TextView
+        <RelativeLayout
             android:id="@+id/current_wind_view"
             android:layout_below="@id/current_feel_view"
             android:layout_toRightOf="@id/current_temp_view"
@@ -111,10 +148,26 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:gravity="center"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:text="wind"
-            android:background="@drawable/circle"/>
+            android:background="@drawable/circle">
+            <TextView
+                android:id="@+id/tv_windspeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:textSize="20sp"
+                android:text="40°"/>
+            <TextView
+                android:layout_below="@id/tv_windspeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primaryTextColor"
+                android:fontFamily="sans-serif-light"
+                android:paddingLeft="5dp"
+                android:textSize="10sp"
+                android:text="mph"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

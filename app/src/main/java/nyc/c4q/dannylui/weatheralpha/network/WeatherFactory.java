@@ -58,7 +58,7 @@ public class WeatherFactory {
                 SunModel sunModel = parseToSunModel(forecast);
                 TempModel tempModel = parseToTempModel(forecast);
                 RainModel rainModel = parseToRainModel(forecast);
-                weatherCallback.getForecastData(forecast, sunModel, tempModel, rainModel);
+                weatherCallback.getForecastData(sunModel, tempModel, rainModel);
             }
 
             @Override

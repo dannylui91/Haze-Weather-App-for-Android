@@ -16,7 +16,6 @@ import nyc.c4q.dannylui.weatheralpha.fragments.HeaderFragment;
 import nyc.c4q.dannylui.weatheralpha.models.RainModel;
 import nyc.c4q.dannylui.weatheralpha.models.SunModel;
 import nyc.c4q.dannylui.weatheralpha.models.TempModel;
-import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import nyc.c4q.dannylui.weatheralpha.models.ipapi.Location;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherCallback;
 import nyc.c4q.dannylui.weatheralpha.network.WeatherFactory;
@@ -125,9 +124,9 @@ public class MainActivity extends FragmentActivity implements WeatherCallback {
     }
 
     @Override
-    public void getForecastData(Forecast forecast, SunModel sunModel, TempModel tempModel, RainModel rainModel) {
+    public void getForecastData(SunModel sunModel, TempModel tempModel, RainModel rainModel) {
         System.out.println("Got forecast data");
-        headerFragment.updateAll(forecast, sunModel, tempModel, rainModel);
+        headerFragment.updateAll(sunModel, tempModel, rainModel);
         circleFragment.updateAll(sunModel, tempModel, rainModel);
     }
 

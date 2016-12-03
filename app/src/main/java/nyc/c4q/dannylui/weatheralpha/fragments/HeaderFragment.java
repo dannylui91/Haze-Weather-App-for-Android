@@ -17,7 +17,6 @@ import nyc.c4q.dannylui.weatheralpha.R;
 import nyc.c4q.dannylui.weatheralpha.models.RainModel;
 import nyc.c4q.dannylui.weatheralpha.models.SunModel;
 import nyc.c4q.dannylui.weatheralpha.models.TempModel;
-import nyc.c4q.dannylui.weatheralpha.models.darksky.Forecast;
 import nyc.c4q.dannylui.weatheralpha.utility.ConvertUnixTs;
 
 /**
@@ -47,7 +46,6 @@ public class HeaderFragment extends Fragment {
     private List<String> highTempList;
     private List<String> rainChanceList;
 
-    private Forecast forecastData;
     private static int currentPosition;
 
     @Nullable
@@ -82,8 +80,7 @@ public class HeaderFragment extends Fragment {
 //        }
     }
 
-    public void updateAll(Forecast forecast, SunModel sunModel, TempModel tempModel, RainModel rainModel) {
-        forecastData = forecast;
+    public void updateAll(SunModel sunModel, TempModel tempModel, RainModel rainModel) {
         sunshineList = sunModel.getSunshineList();
         highTempList = tempModel.getHighTempList();
         rainChanceList = rainModel.getRainChanceList();
@@ -127,35 +124,27 @@ public class HeaderFragment extends Fragment {
     }
 
     public void setData(List<String> dataList) {
-        dayOneView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(0).getTime()));
-        dayTwoView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(1).getTime()));
-        dayThreeView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(2).getTime()));
-        dayFourView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(3).getTime()));
-        dayFiveView.setText(ConvertUnixTs.toDayOfWeek(forecastData.getDaily().getData().get(4).getTime()));
+        dayOneView.setText(ConvertUnixTs.toDayOfWeek(System.currentTimeMillis() / 1000L));
+        dayTwoView.setText(ConvertUnixTs.toDayOfWeek(System.currentTimeMillis() / 1000L + 86400));
+        dayThreeView.setText(ConvertUnixTs.toDayOfWeek(System.currentTimeMillis() / 1000L + 86400 * 2));
+        dayFourView.setText(ConvertUnixTs.toDayOfWeek(System.currentTimeMillis() / 1000L + 86400 * 3));
+        dayFiveView.setText(ConvertUnixTs.toDayOfWeek(System.currentTimeMillis() / 1000L + 86400 * 4));
 
         dayOneCircleView.setText(dataList.get(0));
         dayTwoCircleView.setText(dataList.get(1));
         dayThreeCircleView.setText(dataList.get(2));
         dayFourCircleView.setText(dataList.get(3));
         dayFiveCircleView.setText(dataList.get(4));
-        //dayFiveCircleView.setText(String.valueOf(Math.round(forecastData.getDaily().getData().get(4).getTemperatureMax())));
 
-        setCircleViewPositions(forecastData, dataList);
+        setCircleViewPositions(dataList);
     }
 
-    public void setCircleViewPositions(Forecast forecast, List<String> dataList) {
-//        long dayOneTemp = Math.round(forecast.getDaily().getData().get(0).apparentTemperatureMax);
-//        long dayTwoTemp = Math.round(forecast.getDaily().getData().get(1).apparentTemperatureMax);
-//        long dayThreeTemp = Math.round(forecast.getDaily().getData().get(2).apparentTemperatureMax);
-//        long dayFourTemp = Math.round(forecast.getDaily().getData().get(3).apparentTemperatureMax);
-//        long dayFiveTemp = Math.round(forecast.getDaily().getData().get(4).apparentTemperatureMax);
-
+    public void setCircleViewPositions(List<String> dataList) {
         long dayOneTemp = Integer.parseInt(dataList.get(0));
         long dayTwoTemp = Integer.parseInt(dataList.get(1));
         long dayThreeTemp = Integer.parseInt(dataList.get(2));
         long dayFourTemp = Integer.parseInt(dataList.get(3));
         long dayFiveTemp = Integer.parseInt(dataList.get(4));
-
 
         List<Long> list = Arrays.asList(dayOneTemp, dayTwoTemp, dayThreeTemp, dayFourTemp, dayFiveTemp);
         Collections.sort(list);
@@ -185,14 +174,6 @@ public class HeaderFragment extends Fragment {
                 dayView.animate().translationY(-50f);
             }
         }
-    }
-
-    public void setDefaultPosition() {
-        dayOneCircleView.animate().translationY(0f);
-        dayTwoCircleView.animate().translationY(0f);
-        dayThreeCircleView.animate().translationY(0f);
-        dayFourCircleView.animate().translationY(0f);
-        dayFiveCircleView.animate().translationY(0f);
     }
 
     public void setSunTheme() {

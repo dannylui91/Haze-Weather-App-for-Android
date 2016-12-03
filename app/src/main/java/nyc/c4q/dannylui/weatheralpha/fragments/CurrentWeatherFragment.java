@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
@@ -22,12 +23,18 @@ public class CurrentWeatherFragment extends Fragment {
     private View rootView;
     private TempModel tempModel;
 
-    private TextView currentHiView;
-    private TextView currentLoView;
+    private RelativeLayout currentHiView;
+    private RelativeLayout currentLoView;
     private TextView currentTempView;
-    private TextView currentFeelView;
-    private TextView currentWindSpeedView;
-    private TextView currentRainChanceView;
+    private RelativeLayout currentFeelView;
+    private RelativeLayout currentWindSpeedView;
+    private RelativeLayout currentRainChanceView;
+
+    private TextView highTempTv;
+    private TextView lowTempTv;
+    private TextView feelTempTv;
+    private TextView windSpeedTv;
+    private TextView windDirectionTv;
 
     private static int origWidth;
     private static int origHeight;
@@ -45,12 +52,18 @@ public class CurrentWeatherFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        currentHiView = (TextView) view.findViewById(R.id.high_temp);
-        currentLoView = (TextView) view.findViewById(R.id.current_lo_view);
+        currentHiView = (RelativeLayout) view.findViewById(R.id.current_hi_view);
+        currentLoView = (RelativeLayout) view.findViewById(R.id.current_lo_view);
         currentTempView = (TextView) view.findViewById(R.id.current_temp_view);
-        currentFeelView = (TextView) view.findViewById(R.id.current_feel_view);
-        currentWindSpeedView = (TextView) view.findViewById(R.id.current_wind_view);
-        currentRainChanceView = (TextView) view.findViewById(R.id.current_rain_chance_view);
+        currentFeelView = (RelativeLayout) view.findViewById(R.id.current_feel_view);
+        currentWindSpeedView = (RelativeLayout) view.findViewById(R.id.current_wind_view);
+        currentRainChanceView = (RelativeLayout) view.findViewById(R.id.current_rain_chance_view);
+
+        highTempTv = (TextView) view.findViewById(R.id.tv_hightemp);
+        lowTempTv = (TextView) view.findViewById(R.id.tv_lowtemp);
+        feelTempTv = (TextView) view.findViewById(R.id.tv_feeltemp);
+        windSpeedTv = (TextView) view.findViewById(R.id.tv_windspeed);
+        windDirectionTv = (TextView) view.findViewById(R.id.tv_winddirection);
 
         if (tempModel != null) {
             attachDataToViews(tempModel);
@@ -72,8 +85,7 @@ public class CurrentWeatherFragment extends Fragment {
                     params.width = currentTempView.getWidth() - 100;
                     currentTempView.requestLayout();
                     isDisabled = false;
-                }
-                else {
+                } else {
                     if (animationEnd) {
                         animationEnd = false;
                         disableViews();
@@ -100,12 +112,12 @@ public class CurrentWeatherFragment extends Fragment {
 
     public void attachDataToViews(TempModel tempModel) {
 
-        currentHiView.setText(tempModel.getHighTemp());
-        currentLoView.setText(tempModel.getLowTemp());
+        highTempTv.setText(tempModel.getHighTemp());
+        lowTempTv.setText(tempModel.getLowTemp());
         currentTempView.setText(tempModel.getCurrentTemp());
-        currentFeelView.setText(tempModel.getFeelTemp());
-        currentWindSpeedView.setText(tempModel.getWindSpeed());
-        currentRainChanceView.setText(tempModel.getWindDirection());
+        feelTempTv.setText(tempModel.getFeelTemp());
+        windSpeedTv.setText(tempModel.getWindSpeed());
+        windDirectionTv.setText(tempModel.getWindDirection());
     }
 
     public void disableViews() {
@@ -130,7 +142,7 @@ public class CurrentWeatherFragment extends Fragment {
         setAnimationStuff(currentRainChanceView);
     }
 
-    public void setAnimationStuff(TextView t) {
+    public void setAnimationStuff(RelativeLayout t) {
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
         fadeIn.setDuration(500);
