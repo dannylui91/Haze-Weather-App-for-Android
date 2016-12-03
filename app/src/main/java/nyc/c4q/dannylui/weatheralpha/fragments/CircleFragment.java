@@ -44,7 +44,7 @@ public class CircleFragment extends Fragment {
                 getFragmentManager().beginTransaction()
                         .replace(R.id.general_circle_container, sunFragment)
                         .commit();
-                rootView.animate().translationY(-50f);
+                rootView.animate().translationY(0f);
                 break;
             case 1:
                 System.out.println("Called replace Container 1");
@@ -57,7 +57,7 @@ public class CircleFragment extends Fragment {
                 getFragmentManager().beginTransaction()
                         .replace(R.id.general_circle_container, precipFragment)
                         .commit();
-                rootView.animate().translationY(450f);
+                rootView.animate().translationY(550f);
                 break;
         }
     }

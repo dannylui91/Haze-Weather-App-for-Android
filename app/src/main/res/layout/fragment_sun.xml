@@ -3,108 +3,162 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/invisibile_divider"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Cloud icon -->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
-        <View
-            android:id="@+id/invisibile_divider"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_centerHorizontal="true"/>
+        android:id="@+id/current_cloudicon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center" >
+    </RelativeLayout>
 
-        <!-- Cloud icon -->
+    <!-- UV index -->
+    <RelativeLayout
+        android:id="@+id/current_uv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center">
         <TextView
-            android:id="@+id/current_cloud"
-            android:layout_toLeftOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/primaryTextColor"
+            android:id="@+id/tv_uvindex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="15sp"
-            android:text="hi"
-            android:background="@drawable/circle"/>
-
-        <!-- UV index -->
+            android:paddingLeft="5dp"
+            android:text="3"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="20sp" />
         <TextView
-            android:id="@+id/current_uv"
-            android:layout_toRightOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:textColor="@color/primaryTextColor"
+            android:layout_below="@id/tv_uvindex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="feel"
-            android:paddingLeft="10dp"
-            android:textSize="20sp"
-            android:background="@drawable/circle"/>
+            android:paddingLeft="5dp"
+            android:text="UV"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
-        <!-- Hour of sun left -->
+    <!-- Hour of sun left -->
+    <TextView
+        android:id="@+id/current_sunleft"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/invisibile_divider"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:text="50"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="50sp" />
+
+    <!-- Sunrise -->
+    <RelativeLayout
+        android:id="@+id/current_sunrise"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/current_sunleft"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="-30dp"
+        android:layout_toLeftOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center" >
         <TextView
-            android:id="@+id/current_sunleft"
-            android:layout_below="@id/current_cloud"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textColor="@color/primaryTextColor"
+            android:id="@+id/tv_sunrisetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="50sp"
-            android:text="50"
-            android:background="@drawable/circle"/>
-
-        <!-- Sunrise -->
+            android:paddingLeft="5dp"
+            android:text="0:00"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="15sp" />
         <TextView
-            android:id="@+id/current_sunrise"
-            android:layout_below="@id/current_sunleft"
-            android:layout_toLeftOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginRight="80dp"
-
-            android:layout_marginTop="-20dp"
-            android:textColor="@color/primaryTextColor"
+            android:layout_below="@id/tv_sunrisetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="20sp"
-            android:text="lo"
-            android:background="@drawable/circle"/>
+            android:paddingLeft="5dp"
+            android:text="Sunrise"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
-        <!-- Sunset -->
+    <!-- Sunset -->
+    <RelativeLayout
+        android:id="@+id/current_sunset"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/current_sunleft"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="rain"
+        android:textColor="@color/primaryTextColor" >
         <TextView
-            android:id="@+id/current_sunset"
-            android:layout_below="@id/current_sunleft"
-            android:layout_toLeftOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/primaryTextColor"
+            android:id="@+id/tv_sunsettime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="rain"
-            android:background="@drawable/circle"/>
-
-        <!-- Cloud coverage -->
+            android:paddingLeft="5dp"
+            android:text="0:00"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="15sp" />
         <TextView
-            android:id="@+id/current_cloudcoverage"
-            android:layout_below="@id/current_sunleft"
-            android:layout_toRightOf="@id/invisibile_divider"
-
-            android:layout_marginLeft="50dp"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:textColor="@color/primaryTextColor"
+            android:layout_below="@id/tv_sunsettime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="sans-serif-light"
-            android:text="wind"
-            android:background="@drawable/circle"/>
+            android:paddingLeft="5dp"
+            android:text="Sunset"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <!-- Cloud coverage -->
+    <RelativeLayout
+        android:id="@+id/current_cloudcoverage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_below="@id/current_sunleft"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center" >
+        <TextView
+            android:id="@+id/tv_cloudcoverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="-1"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_below="@id/tv_cloudcoverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="Clouds"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
     </RelativeLayout>
 
 </RelativeLayout>

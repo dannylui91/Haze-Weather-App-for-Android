@@ -36,14 +36,14 @@ public class EmptyFragment extends Fragment {
     public void changeBackground(int position) {
         switch (position) {
             case 0:
-                emptyFragBg.setBackgroundResource(R.color.brown);
+                emptyFragBg.setBackgroundResource(R.drawable.bg_sun_frag);
                 break;
             case 1:
                 ImageView backgroundGifView = (ImageView) rootView.findViewById(R.id.empty_frag_gif);
                 Glide.with(this).load(R.drawable.animation_bg_candy).into(backgroundGifView);
                 break;
             case 2:
-                emptyFragBg.setBackgroundResource(R.color.blue);
+                emptyFragBg.setBackgroundResource(R.drawable.bg_rain_frag);
                 break;
         }
     }

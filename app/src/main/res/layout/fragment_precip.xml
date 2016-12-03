@@ -3,91 +3,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/invisibile_divider"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Umbrella icon -->
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
-        <View
-            android:id="@+id/invisibile_divider"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_centerHorizontal="true"/>
-
-
-        <!-- Umbrella icon -->
-        <TextView
-            android:id="@+id/current_umbrella"
-            android:layout_toLeftOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="15sp"
-            android:text="hi"
-            android:background="@drawable/circle"/>
-
-        <!-- Rain fall -->
-        <TextView
-            android:id="@+id/current_rainfall"
-            android:layout_toRightOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:text="feel"
-            android:paddingLeft="10dp"
-            android:textSize="20sp"
-            android:background="@drawable/circle"/>
-
-        <!-- Rain Chance -->
-        <TextView
-            android:id="@+id/current_rainchance"
-            android:layout_below="@id/current_umbrella"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="50sp"
-            android:text="50"
-            android:background="@drawable/circle"/>
-
-        <!-- Air pressure -->
-        <TextView
-            android:id="@+id/current_pressure"
-            android:layout_below="@id/current_rainchance"
-            android:layout_toLeftOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginRight="50dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:paddingLeft="10dp"
-            android:textSize="20sp"
-            android:text="lo"
-            android:background="@drawable/circle"/>
-
-        <!-- Humidity -->
-        <TextView
-            android:id="@+id/current_humidity"
-            android:layout_below="@id/current_rainchance"
-            android:layout_toRightOf="@id/invisibile_divider"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:textColor="@color/primaryTextColor"
-            android:fontFamily="sans-serif-light"
-            android:text="rain"
-            android:background="@drawable/circle"/>
+        android:id="@+id/current_umbrella"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="40dp"
+        android:layout_toLeftOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center" >
     </RelativeLayout>
 
+    <!-- Rain fall -->
+    <RelativeLayout
+        android:id="@+id/current_rainfall"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="40dp"
+        android:layout_toRightOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center" >
+        <TextView
+            android:id="@+id/tv_rainintensity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="-1"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_below="@id/tv_rainintensity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="in/h"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <!-- Rain Chance -->
+    <TextView
+        android:id="@+id/current_rainchance"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/invisibile_divider"
+        android:layout_centerInParent="true"
+        android:background="@drawable/circle"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:text="50"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="50sp" />
+
+    <!-- Air pressure -->
+    <RelativeLayout
+        android:id="@+id/current_pressure"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="-40dp"
+        android:layout_below="@id/current_rainchance"
+        android:layout_marginRight="70dp"
+        android:layout_toLeftOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center" >
+        <TextView
+            android:id="@+id/tv_airpressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="-1"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_below="@id/tv_airpressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="15dp"
+            android:text="mbar"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <!-- Humidity -->
+    <RelativeLayout
+        android:id="@+id/current_humidity"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="-40dp"
+        android:layout_below="@id/current_rainchance"
+        android:layout_marginLeft="70dp"
+        android:layout_toRightOf="@id/invisibile_divider"
+        android:background="@drawable/circle"
+        android:gravity="center" >
+        <TextView
+            android:id="@+id/tv_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="-1"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_below="@id/tv_humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:paddingLeft="5dp"
+            android:text="Humidity"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="10sp" />
+    </RelativeLayout>
 </RelativeLayout>

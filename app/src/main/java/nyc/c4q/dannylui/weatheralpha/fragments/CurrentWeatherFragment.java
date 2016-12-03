@@ -56,8 +56,8 @@ public class CurrentWeatherFragment extends Fragment {
         currentLoView = (RelativeLayout) view.findViewById(R.id.current_lo_view);
         currentTempView = (TextView) view.findViewById(R.id.current_temp_view);
         currentFeelView = (RelativeLayout) view.findViewById(R.id.current_feel_view);
-        currentWindSpeedView = (RelativeLayout) view.findViewById(R.id.current_wind_view);
-        currentRainChanceView = (RelativeLayout) view.findViewById(R.id.current_rain_chance_view);
+        currentWindSpeedView = (RelativeLayout) view.findViewById(R.id.current_windspeed_view);
+        currentRainChanceView = (RelativeLayout) view.findViewById(R.id.current_winddirection_view);
 
         highTempTv = (TextView) view.findViewById(R.id.tv_hightemp);
         lowTempTv = (TextView) view.findViewById(R.id.tv_lowtemp);

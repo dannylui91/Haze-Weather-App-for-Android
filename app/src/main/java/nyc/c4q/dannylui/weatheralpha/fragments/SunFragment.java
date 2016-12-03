@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
@@ -22,12 +23,17 @@ public class SunFragment extends Fragment {
     private View rootView;
     private SunModel sunModel;
 
-    private TextView cloudIcon;
-    private TextView uvIndex;
+    private RelativeLayout cloudIcon;
+    private RelativeLayout uvIndex;
     private TextView sunLeft;
-    private TextView sunrise;
-    private TextView sunset;
-    private TextView cloudCoverage;
+    private RelativeLayout sunrise;
+    private RelativeLayout sunset;
+    private RelativeLayout cloudCoverage;
+
+    private TextView uvIndexTv;
+    private TextView sunriseTimeTv;
+    private TextView sunsetTimeTv;
+    private TextView cloudCoverageTv;
 
     private static int origWidth;
     private static int origHeight;
@@ -45,12 +51,18 @@ public class SunFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        cloudIcon = (TextView) view.findViewById(R.id.current_cloud);
-        uvIndex = (TextView) view.findViewById(R.id.current_uv);
+        cloudIcon = (RelativeLayout) view.findViewById(R.id.current_cloudicon);
+        uvIndex = (RelativeLayout) view.findViewById(R.id.current_uv);
         sunLeft = (TextView) view.findViewById(R.id.current_sunleft);
-        sunrise = (TextView) view.findViewById(R.id.current_sunrise);
-        sunset = (TextView) view.findViewById(R.id.current_sunset);
-        cloudCoverage = (TextView) view.findViewById(R.id.current_cloudcoverage);
+        sunrise = (RelativeLayout) view.findViewById(R.id.current_sunrise);
+        sunset = (RelativeLayout) view.findViewById(R.id.current_sunset);
+        cloudCoverage = (RelativeLayout) view.findViewById(R.id.current_cloudcoverage);
+
+        uvIndexTv = (TextView) view.findViewById(R.id.tv_uvindex);
+        sunriseTimeTv = (TextView) view.findViewById(R.id.tv_sunrisetime);
+        sunsetTimeTv = (TextView) view.findViewById(R.id.tv_sunsettime);
+        cloudCoverageTv = (TextView) view.findViewById(R.id.tv_cloudcoverage);
+
 
         if (sunModel != null) {
             attachDataToViews(sunModel);
@@ -72,8 +84,7 @@ public class SunFragment extends Fragment {
                     params.width = sunLeft.getWidth() - 100;
                     sunLeft.requestLayout();
                     isDisabled = false;
-                }
-                else {
+                } else {
                     if (animationEnd) {
                         animationEnd = false;
                         disableViews();
@@ -97,11 +108,11 @@ public class SunFragment extends Fragment {
     }
 
     public void attachDataToViews(SunModel sunModel) {
-        uvIndex.setText(sunModel.getUvIndex());
-        sunrise.setText(sunModel.getSunriseTime());
-        sunset.setText(sunModel.getSunsetTime());
+        uvIndexTv.setText(sunModel.getUvIndex());
+        sunriseTimeTv.setText(sunModel.getSunriseTime());
+        sunsetTimeTv.setText(sunModel.getSunsetTime());
         sunLeft.setText(sunModel.getSunTime());
-        cloudCoverage.setText(sunModel.getCloudCoverage());
+        cloudCoverageTv.setText(sunModel.getCloudCoverage());
     }
 
     public void disableViews() {
@@ -126,7 +137,7 @@ public class SunFragment extends Fragment {
         setAnimationStuff(cloudCoverage);
     }
 
-    public void setAnimationStuff(TextView t) {
+    public void setAnimationStuff(RelativeLayout t) {
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
         fadeIn.setDuration(500);

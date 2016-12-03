@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import nyc.c4q.dannylui.weatheralpha.R;
@@ -23,10 +24,14 @@ public class PrecipFragment extends Fragment {
     private RainModel rainModel;
 
     private TextView rainChance;
-    private TextView umbrellaIcon;
-    private TextView currentRainFall;
-    private TextView currentAirPressure;
-    private TextView currentHumidity;
+    private RelativeLayout umbrellaIcon;
+    private RelativeLayout currentRainFall;
+    private RelativeLayout currentAirPressure;
+    private RelativeLayout currentHumidity;
+
+    private TextView rainIntensityTv;
+    private TextView airPressureTv;
+    private TextView humidityTv;
 
     private static int origWidth;
     private static int origHeight;
@@ -45,10 +50,14 @@ public class PrecipFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rainChance = (TextView) view.findViewById(R.id.current_rainchance);
-        umbrellaIcon = (TextView) view.findViewById(R.id.current_umbrella);
-        currentRainFall = (TextView) view.findViewById(R.id.current_rainfall);
-        currentAirPressure = (TextView) view.findViewById(R.id.current_pressure);
-        currentHumidity = (TextView) view.findViewById(R.id.current_humidity);
+        umbrellaIcon = (RelativeLayout) view.findViewById(R.id.current_umbrella);
+        currentRainFall = (RelativeLayout) view.findViewById(R.id.current_rainfall);
+        currentAirPressure = (RelativeLayout) view.findViewById(R.id.current_pressure);
+        currentHumidity = (RelativeLayout) view.findViewById(R.id.current_humidity);
+
+        rainIntensityTv = (TextView) view.findViewById(R.id.tv_rainintensity);
+        airPressureTv = (TextView) view.findViewById(R.id.tv_airpressure);
+        humidityTv = (TextView) view.findViewById(R.id.tv_humidity);
 
         if (rainModel != null) {
             attachDataToViews(rainModel);
@@ -96,9 +105,9 @@ public class PrecipFragment extends Fragment {
 
     public void attachDataToViews(RainModel rainModel) {
         rainChance.setText(rainModel.getRainChance());
-        currentRainFall.setText(rainModel.getRainDropped());
-        currentHumidity.setText(rainModel.getHumidity());
-        currentAirPressure.setText(rainModel.getPressure());
+        rainIntensityTv.setText(rainModel.getRainDropped());
+        humidityTv.setText(rainModel.getHumidity());
+        airPressureTv.setText(rainModel.getPressure());
     }
 
     public void disableViews() {
@@ -120,7 +129,7 @@ public class PrecipFragment extends Fragment {
         setAnimationStuff(currentHumidity);
     }
 
-    public void setAnimationStuff(TextView t) {
+    public void setAnimationStuff(RelativeLayout t) {
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
         fadeIn.setDuration(500);

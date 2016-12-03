@@ -75,8 +75,8 @@ public class WeatherFactory {
     public SunModel parseToSunModel(Forecast forecast) {
         int iconId = 0;
         String uvIndex = "0";
-        String sunriseTime = ConvertUnixTs.toHourMinute(forecast.getDaily().getData().get(0).getSunriseTime());
-        String sunsetTime = ConvertUnixTs.toHourMinute(forecast.getDaily().getData().get(0).getSunsetTime());
+        String sunriseTime = ConvertUnixTs.toHourMinute(forecast.getDaily().getData().get(0).getSunriseTime()).substring(1) + "ᴬᴹ";
+        String sunsetTime = ConvertUnixTs.toHourMinute(forecast.getDaily().getData().get(0).getSunsetTime()).substring(1) + "ᴾᴹ";
         String cloudCoverage = (int) (forecast.getCurrently().getCloudCover() * 100) + "%";
         String sunTime = getSunTime(forecast);
         List<String> sunshineList = getSunshineList(forecast);
@@ -100,7 +100,7 @@ public class WeatherFactory {
         int iconId = 0;
         String rainDropped = (int) Math.round(forecast.getCurrently().getPrecipIntensity()) + "";
         String pressure = (int) Math.round(forecast.getCurrently().getPressure()) + "";
-        String humidity = (int) (forecast.getCurrently().getHumidity() * 100) + "";
+        String humidity = (int) (forecast.getCurrently().getHumidity() * 100) + "%";
         String rainChance = (int) (forecast.getCurrently().getPrecipProbability() * 100) + "%";
         List<String> rainChanceList = getRainChanceList(forecast);
 
